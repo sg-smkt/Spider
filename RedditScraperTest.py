@@ -1,5 +1,10 @@
 import praw
+import json
 
+#Write comments to file 
+new_file = open('comment.txt', 'a')
+
+#Create/Get from https://old.reddit.com/prefs/apps/
 r_id = ''
 r_secret = ''
 r_user = ''
@@ -14,7 +19,14 @@ reddit = praw.Reddit(client_id=r_id,
 submission = reddit.submission(id="k91q37")
 submission.comments.replace_more(limit=None)
 
+count = 1
+
 for top_level_comment in submission.comments:
     comment = top_level_comment.body
     if(comment != '[deleted]'):
-        print(comment)
+        Dict = {count: comment}
+        count = count + 1
+        new_file.write(json.dumps(Dict))
+        new_file.write("\n")
+
+file.close()
