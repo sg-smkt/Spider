@@ -25,7 +25,7 @@ CoreNLP: Natural Language Processing; [Link](https://stanfordnlp.github.io/CoreN
 Steps: 
 1. Download Core NLP 4.2.0 (About 500MB)
 2. Download the english model jar (About 600MB)
-3. Move english model jar into Core NLP 4.2.0 foler in Step 1
+3. Move english model jar into Core NLP 4.2.0 folder in Step 1
 4. Configure CLASSPATH using the command in the visual picture above. 
   Change "/path/to/" to where the downloaded CoreNLP folder is at
 5. Create an "input.txt" file with sample text and test using the command above 
@@ -47,5 +47,7 @@ Note: Not configuing Step 4. properly with result in error shown below
 ![Screenshot from 2021-02-18 17-56-46](https://user-images.githubusercontent.com/23652958/108339733-c11fda00-7212-11eb-8406-6322d67ded62.png)
 
 10. Test with sample code in Prototype Branch (Branch -> Prototype -> SentimentalSample.java)
-11. You're Good to Go!
+11. You should get the result as follow
+
+![Screenshot from 2021-02-18 17-59-43](https://user-images.githubusercontent.com/23652958/108340035-1cea6300-7213-11eb-96e3-33e708262ce1.png)
 
