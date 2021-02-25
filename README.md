@@ -1,5 +1,8 @@
 # Spider
 
+## CoreNLP
+Refer to Main Branch for instructions 
+
 ## Maven 
 Project uses Maven 
 Download here: https://maven.apache.org/download.cgi
