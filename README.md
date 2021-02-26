@@ -11,6 +11,7 @@ We could enter the libraries we are using or researching here
 
 ### Reddit API 
 Praw: Python API wrapper for Reddit; [Link](https://praw.readthedocs.io/en/latest/) 
+Jraw: Java API wrapper for Reddit; [Link](https://javadoc.jitpack.io/com/github/mattbdean/JRAW/v1.1.0/javadoc/index.html)
 
 ### Twitter API
 (Insert here)
