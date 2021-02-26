@@ -10,7 +10,7 @@ Use API to request event related data from Twitter & Reddit for possible sentime
 We could enter the libraries we are using or researching here
 
 ### Reddit API 
-Praw: Python API wrapper for Reddit; [Link](https://praw.readthedocs.io/en/latest/) 
+Praw: Python API wrapper for Reddit; [Link](https://praw.readthedocs.io/en/latest/)<br />
 Jraw: Java API wrapper for Reddit; [Link](https://javadoc.jitpack.io/com/github/mattbdean/JRAW/v1.1.0/javadoc/index.html)
 
 ### Twitter API
