@@ -13,6 +13,11 @@ import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
 import tech.tablesaw.api.DoubleColumn;
+import tech.tablesaw.api.StringColumn;
+import tech.tablesaw.api.Table;
+import tech.tablesaw.plotly.Plot;
+import tech.tablesaw.plotly.api.HorizontalBarPlot;
+import tech.tablesaw.plotly.api.PiePlot;
 
 public class SpiderSentimenet {
 	
@@ -39,6 +44,7 @@ public class SpiderSentimenet {
 		System.out.println("No of sentences: " + length);
 		
 		for (int i = 0; i <sentences.size(); i++) {
+			
 			// Code to get Sentiment Distribution 
 			Tree tree = sentences.get(i).get(SentimentCoreAnnotations.SentimentAnnotatedTree.class);
 			SimpleMatrix simpleMatrix = RNNCoreAnnotations.getPredictions(tree);
@@ -73,7 +79,12 @@ public class SpiderSentimenet {
 		//Pass document into Sentiment Library for calculation  
 		double[] result = newSentiment.SentimentalCalculation(doc.get(SentencesAnnotation.class));
 		//Print Result
-		newSentiment.printStats(result);
+		
+		SpiderPlotting newPlot = new SpiderPlotting();
+		Table table = newPlot.createTableByCount(doc.get(SentencesAnnotation.class));
+		newPlot.printTable(table);
+		newPlot.displayBarChart(table);
+		newPlot.displayPieChart(table);
 	}
 
 }
