@@ -11,7 +11,16 @@ We could enter the libraries we are using or researching here
 
 ### Reddit API 
 Praw: Python API wrapper for Reddit; [Link](https://praw.readthedocs.io/en/latest/)<br />
-Jraw: Java API wrapper for Reddit; [Link](https://javadoc.jitpack.io/com/github/mattbdean/JRAW/v1.1.0/javadoc/index.html)
+Jraw: Java API wrapper for Reddit; [Link](https://javadoc.jitpack.io/com/github/mattbdean/JRAW/v1.1.0/javadoc/index.html)<br />
+#### Creating a Reddit Application
+Steps:
+1. Login with your reddit acc at https://www.reddit.com/prefs/apps
+2. Create another app..
+3. Enter app name, purpose, description, about url and redirect url
+4. Create app
+#### Oauth2
+Client Id and Secret can be found here after the creation of the app<br />
+![image](https://user-images.githubusercontent.com/74295056/109486194-81cc7580-7abd-11eb-9966-bb99717531d2.png)
 
 ### Twitter API
 (Insert here)
