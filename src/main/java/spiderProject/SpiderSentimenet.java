@@ -21,23 +21,7 @@ import tech.tablesaw.plotly.api.PiePlot;
 
 public class SpiderSentimenet {
 	
-	public static String text = "The real tragedy is that the higher the IQ and the longer the period of higher education, the less in touch the person will be with their animal instincts and intuition.\n" + 
-			"\n" + 
-			"The psyche becomes undecided after so long a period of structured rote learning. The expression becomes overly cautious, afraid to offend.\n" + 
-			"\n" + 
-			"The mind withdraws itself from the tempest of the natural world and seeks comfort in the heavily quantifiable. Every belief needs to be calculated in excess and checked against a long list of others before the self would even make the smallest step forward.\n" + 
-			"\n" + 
-			"And if you are to observe carefully enough, you will see that this phenomenon disproportionely affects young men. I am not saying that one nature is more important than the other. You need to be a complete human being.";
-	
-	public Annotation Initialize() {
-		Properties properties = new Properties();
-		properties.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
-		StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
-		Annotation doc = new Annotation(text);
-		pipeline.annotate(doc);
-		return doc;
-	}
-	
+	// This is not used
 	public double[] SentimentalCalculation(List<CoreMap> sentences) {
 		double[] sentimentalScore = new double[5];
 		int length = sentences.size();
@@ -73,18 +57,50 @@ public class SpiderSentimenet {
 	}
 	
 	public static void main(String[] args) {
+		ReadJson jsonData = new ReadJson();
+		ArrayList<String> data = jsonData.getData();
+		System.out.println(data.get(0));
+		
 		SpiderSentimenet newSentiment = new SpiderSentimenet();
 		//Initialize CoreNLP Sentiment Library
-		Annotation doc = newSentiment.Initialize();
-		//Pass document into Sentiment Library for calculation  
-		double[] result = newSentiment.SentimentalCalculation(doc.get(SentencesAnnotation.class));
-		//Print Result
+		Properties properties = new Properties();
+		properties.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
+		StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
 		
-		SpiderPlotting newPlot = new SpiderPlotting();
-		Table table = newPlot.createTableByCount(doc.get(SentencesAnnotation.class));
-		newPlot.printTable(table);
-		newPlot.displayBarChart(table);
-		newPlot.displayPieChart(table);
+		double[][] result = new double[data.size()][5];
+		double[] summarizesResult = new double[5];
+		for(int i = 0; i < 1; i++) {
+			Annotation doc = new Annotation(data.get(i));
+			pipeline.annotate(doc);
+			//Pass document into Sentiment Library for calculation  
+			result[i] = newSentiment.SentimentalCalculation(doc.get(SentencesAnnotation.class));
+		}
+		
+		for(int i = 0; i < data.size(); i++) {
+			for(int j = 0; j < 5; j++) {
+				System.out.print(result[i][j] + " ");
+			}
+			System.out.println();
+		}
+
+		
+		for(int j = 0; j < 5; j++) {
+			for(int i = 0; i < data.size(); i++) {
+				summarizesResult[j] += result[i][j];
+			}
+		}
+
+		//print result
+		newSentiment.printStats(summarizesResult);
+		
+		
+		//need to figure out how to handle plotting in terms of double array
+		
+//		SpiderPlotting newPlot = new SpiderPlotting();
+//		Table table = newPlot.createTableByCount(doc.get(SentencesAnnotation.class));
+//		newPlot.printTable(table);
+//		newPlot.displayBarChart(table);
+//		newPlot.displayPieChart(table);
 	}
 
 }
