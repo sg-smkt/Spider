@@ -1,5 +1,6 @@
 package spiderProject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
@@ -16,15 +17,16 @@ import tech.tablesaw.plotly.api.PiePlot;
 
 public class SpiderPlotting {
 	
-	public Table createTableByCount(List<CoreMap> sentences) {
+	public Table createTableByCount(ArrayList<String> data) {
 		String[] sentimentalType = {"Very Negative", "Negative", "Neurtal", "Positive", "Very Positive"};
 		int[] sentimentalCounter = new int[5];
 		
-		for (int i = 0; i <sentences.size(); i++) {
-			String setimentType = sentences.get(i).get(SentimentCoreAnnotations.SentimentClass.class);
+		for (int i = 0; i < data.size(); i++) {
+			String setimentType = data.get(i);
+			
 			// Get Counter 
 			switch(setimentType) {
-				case "Very Negative":
+				case "Very negative":
 					sentimentalCounter[0] += 1;
 					break;
 				case "Negative":
@@ -36,7 +38,7 @@ public class SpiderPlotting {
 				case "Positive":
 					sentimentalCounter[3] += 1;
 					break;
-				case "Very Positive":
+				case "Very positive":
 					sentimentalCounter[4] += 1;
 					break;
 			}
