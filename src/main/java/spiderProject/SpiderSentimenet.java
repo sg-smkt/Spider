@@ -58,8 +58,10 @@ public class SpiderSentimenet {
 	
 	public static void main(String[] args) {
 		ReadJson jsonData = new ReadJson();
-		ArrayList<String> data = jsonData.getData();
-		System.out.println(data.get(0));
+		// Get Sentences from Reddit DataSet
+		ArrayList<String> sentences = (ArrayList<String>) jsonData.getComments();
+		// Get Upvotes from Reddit DataSet
+		ArrayList<Long> upvotes = jsonData.getUpvotes();
 		
 		SpiderSentimenet newSentiment = new SpiderSentimenet();
 		//Initialize CoreNLP Sentiment Library
@@ -67,38 +69,39 @@ public class SpiderSentimenet {
 		properties.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
 		
-		double[][] result = new double[data.size()][5];
+		double[][] result = new double[2][5];
 		double[] summarizesResult = new double[5];
-		for(int i = 0; i < 1; i++) {
-			Annotation doc = new Annotation(data.get(i));
+		for(int i = 0; i < sentences.size(); i++) {
+			Annotation doc = new Annotation(sentences.get(i));
 			pipeline.annotate(doc);
 			//Pass document into Sentiment Library for calculation  
 			result[i] = newSentiment.SentimentalCalculation(doc.get(SentencesAnnotation.class));
 		}
-		
-		for(int i = 0; i < data.size(); i++) {
-			for(int j = 0; j < 5; j++) {
-				System.out.print(result[i][j] + " ");
-			}
-			System.out.println();
-		}
-
-		
 		for(int j = 0; j < 5; j++) {
-			for(int i = 0; i < data.size(); i++) {
+			for(int i = 0; i < sentences.size(); i++) {
 				summarizesResult[j] += result[i][j];
 			}
 		}
-
+		for(int i = 0; i < summarizesResult.length; i++) {
+			summarizesResult[i] /= sentences.size();
+		}
+		for(int i = 0; i < summarizesResult.length; i++) {
+			System.out.println(summarizesResult[i]);
+		}
 		//print result
 		newSentiment.printStats(summarizesResult);
 		
 		
 		//need to figure out how to handle plotting in terms of double array
 		
-//		SpiderPlotting newPlot = new SpiderPlotting();
-//		Table table = newPlot.createTableByCount(doc.get(SentencesAnnotation.class));
-//		newPlot.printTable(table);
+		//Right now only within 1 element in ArrayList
+		Annotation doc = new Annotation(sentences.get(1));
+		pipeline.annotate(doc);
+		SpiderPlotting newPlot = new SpiderPlotting();
+		jsonData.writeData(doc.get(SentencesAnnotation.class));
+		ArrayList<String> SentimentalTypeArray = (ArrayList<String>) jsonData.getSentimentalData();
+		Table table = newPlot.createTableByCount(SentimentalTypeArray);
+		newPlot.printTable(table);
 //		newPlot.displayBarChart(table);
 //		newPlot.displayPieChart(table);
 	}
