@@ -94,7 +94,7 @@ public class ReadJson {
 		obj.put("Sentimental Type Data", data);
 		
 		try {
-			file = new FileWriter("./src/main/java/spiderProject/sentimentaldata.json", true);
+			file = new FileWriter("./src/main/java/spiderProject/sentimentaldata.json");
 			file.write(obj.toJSONString());
 			System.out.println("Added data to File");
 		}catch(IOException e) {
