@@ -79,20 +79,22 @@ public class ReadJson {
 		return arr;
 	}
 	
-	public void writeData(List<CoreMap> sentences) {
-		ArrayList<String> newList = new ArrayList<String>();
+	public ArrayList<String> writeData(List<CoreMap> sentences, ArrayList<String> newList) {
 		for (int i = 0; i <sentences.size(); i++) {
 			String setimentType = sentences.get(i).get(SentimentCoreAnnotations.SentimentClass.class);
 			newList.add(setimentType);
 		}
-		
+		return newList;
+	}
+	
+	public void writeJson(ArrayList<String> data) {
 		JSONObject obj = new JSONObject();
 		JSONArray arr = new JSONArray();
-		//arr.add(newMap);
-		obj.put("Sentimental Type Data", newList);
+	
+		obj.put("Sentimental Type Data", data);
 		
 		try {
-			file = new FileWriter("./src/main/java/spiderProject/sentimentaldata.json");
+			file = new FileWriter("./src/main/java/spiderProject/sentimentaldata.json", true);
 			file.write(obj.toJSONString());
 			System.out.println("Added data to File");
 		}catch(IOException e) {
