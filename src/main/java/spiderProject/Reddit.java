@@ -12,7 +12,11 @@ import net.dean.jraw.pagination.*;
 import net.dean.jraw.models.*;
 import net.dean.jraw.tree.*;
 
+//Change to
 import org.json.JSONObject;
+//import org.json.simple.JSONObject;
+//import org.json.simple.JSONArray;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import org.json.JSONArray;
@@ -111,11 +115,16 @@ public class Reddit
 		    		break;
 		    	}
 		    	
+			//Change to
 	    		jComments.put(comment.getBody());
+			//jComments.add(comment.getBody());
 		    }
 		    
 		    obj.put("Comments", jComments);
+			
+		    //Change to
 		    jSubmissions.put(obj);
+	            //jSubmissions.add(obj);
 		}
 		
 		json.put("Submissions", jSubmissions);
