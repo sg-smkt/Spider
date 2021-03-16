@@ -76,6 +76,15 @@ private static FileWriter file;
 		return textCollection;
 	}
 	
+	public ArrayList<String> getTwitterComments(String filename) {
+		ArrayList<String> textCollection = new ArrayList<String>();
+		String text = "";
+		JSONObject TwitterObject = JsonService.read(filename);
+		JSONArray TwitterTweets = (JSONArray) TwitterObject.get("Tweets");
+		textCollection = TwitterTweets;
+		return textCollection;
+	}
+	
 	// Implement Getter and Setter here 
 	public ArrayList<String> getSentimentalData(String filename) {
 		JSONObject jsonObject = JsonService.read(filename);

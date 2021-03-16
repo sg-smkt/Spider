@@ -17,6 +17,7 @@ import tech.tablesaw.api.Table;
 public class PlottingController {
 	
 	private static final String RedditJson = "./data.json";
+	private static final String TweeterJson = "./data2.json";
 	private static final String SentimentalJson = "./sentimentaldata.json";
 
 	
@@ -38,7 +39,8 @@ public class PlottingController {
 	public void postPlot() {
 		classification.initialize();
 		
-		ArrayList<String> sentences = json.getRedditComments(RedditJson);
+		//ArrayList<String> sentences = json.getRedditComments(RedditJson);
+		ArrayList<String> sentences = json.getTwitterComments(TweeterJson);
 		classification.writeClassificationToFile(sentences, SentimentalJson);
 		
 		ArrayList<String> SentimentalTypeArray = json.getSentimentalData(SentimentalJson);

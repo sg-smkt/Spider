@@ -74,13 +74,22 @@
 			    <button type="submit" value="Get Plot" class="btn btn-secondary btn-sm">Get Plot</button>
 			</form>
 			
-			<div id='newBarPlot' ></div>
-			<div id='newPieChart' ></div>
+			<div class="container border-top border-bottom">
+			    <div class="row justify-content-center">
+			        <div class="col-md-6">  
+			        	<div id='newBarPlot'></div>
+			        </div>
+			        <div class="col-md-6">
+			        	<div id='newPieChart'></div>
+			        </div>
+			    </div>
+			</div>
+			
         </main>
       </div>
     </div>
 
-  <script>
+    <script>
         var target_newBarPlot = document.getElementById('newBarPlot');
         var layout = {
     title: 'Sentimental By Count',
@@ -92,7 +101,7 @@
 
 var trace0 =
 {
-x: [0.0, 56.0, 274.0, 58.0, 6.0],
+x: [0.0, 0.0, 30.0, 5.0, 0.0],
 y: ["Very Negative","Negative","Neurtal","Positive","Very Positive"],
 orientation: 'h',
 xaxis: 'x',
@@ -117,7 +126,7 @@ Plotly.newPlot(target_newBarPlot, data, layout);            </script>
 var trace0 =
     {
         labels: ["Very Negative","Negative","Neurtal","Positive","Very Positive"],
-        values: [0.0, 56.0, 274.0, 58.0, 6.0],
+        values: [0.0, 0.0, 30.0, 5.0, 0.0],
         type: 'pie',
         name: '',
  }
@@ -127,4 +136,3 @@ Plotly.newPlot(target_newPieChart, data, layout);            </script>
 
 </body>
 </html>
-

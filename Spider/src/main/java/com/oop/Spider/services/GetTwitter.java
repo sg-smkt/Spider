@@ -1,7 +1,11 @@
 package com.oop.Spider.services;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import twitter4j.Query;
@@ -17,6 +21,7 @@ public class GetTwitter {
 	
 	 private Twitter twitterr;
      ArrayList<String> TweetsList = new ArrayList<String>();
+     QueryResult result;
 	
 	  public void authenticate(String consumerkey, String consumerSecret, String accessToken, String accessTokenSecret){
 	    // Makes an instance of Twitter - this is re-useable and thread safe.
@@ -33,16 +38,16 @@ public class GetTwitter {
 	  
 	  public void saQuery (String searchTerm){
 	   	  Query query = new Query(searchTerm);
-	   	  query.setCount(100);
+	   	  query.setCount(5);
 	   	  
 	   	  try {
-	   		  QueryResult result = twitterr.search(query);
+	   		  result = twitterr.search(query);
 	   		  int counter = 0;
 	   		  System.out.println("Count: " + result.getTweets().size());
 	   		  for (Status tweet: result.getTweets()) {
 	   			  counter ++;
-	   			  System.out.println("Tweet #" + counter +": @"+tweet.getUser().getName() + " tweeted \"" + tweet.getText() + "\" Retweets:" + tweet.getRetweetCount());
-	   			  System.out.println("=============");
+//	   			  System.out.println("Tweet #" + counter +": @"+tweet.getUser().getName() + " tweeted \"" + tweet.getText() + "\" Retweets:" + tweet.getRetweetCount());
+//	   			  System.out.println("=============");
 	   			  TweetsList.add(tweet.getText());
 	   		  }
 	   	  }
@@ -50,5 +55,32 @@ public class GetTwitter {
 	   		  e.printStackTrace();
 	   	  }
 	   	  System.out.println(TweetsList);
+	   	  
+	   	  ConvertToJson(searchTerm);
    	  }  
+	  
+	  
+	  private void ConvertToJson(String searchTerm)
+	  {
+		  JSONObject json = new JSONObject();
+		  json.put("Hashtag Name", searchTerm);
+		  JSONArray jarray = new JSONArray();
+		  for (int i = 0; i < result.getTweets().size(); i++) {
+			  for (Status tweet: result.getTweets())
+			  {
+				  jarray.add(tweet.getText());
+			  }
+		  }
+		  json.put("Tweets", jarray);
+		  WriteToFile(json);
+	  }
+	  
+	  private void WriteToFile(JSONObject json) {
+		  try(FileWriter file = new FileWriter("data2.json")){
+			  file.write(json.toString());
+			  file.flush();
+		  } catch(IOException e) {
+			  e.printStackTrace();
+		  }
+	  }
 }

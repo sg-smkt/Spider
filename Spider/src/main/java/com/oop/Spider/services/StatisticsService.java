@@ -1,5 +1,7 @@
 package com.oop.Spider.services;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
 
 import tech.tablesaw.api.DoubleColumn;
@@ -51,7 +53,6 @@ public class StatisticsService {
 	public void printStats(double[] sentimentalScore) {
 		StatisticsService newStats = new StatisticsService();
 		double[] normalizedScore = newStats.normalize(sentimentalScore);
-		
 		DoubleColumn ss = DoubleColumn.create("Sentimental Data", normalizedScore);
 		
 		System.out.println();
