@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.oop.Spider.objects.TwitterObject;
+import com.oop.Spider.objects.Searchable;
 
 @Service
 public class TwitterService {
@@ -18,9 +18,9 @@ public class TwitterService {
 	
     ArrayList<String> TweetsList = new ArrayList<String>();
 	
-	public void searchHashTag(TwitterObject twitter, Model model) {
-		model.addAttribute("twitter", twitter);
-		initialize(twitter.getSearch());
+	public void searchHashTag(Searchable search, Model model) {
+		model.addAttribute("twitter", search);
+		initialize(search.getSearch());
 	}
 	
 	public static void initialize(String search) {

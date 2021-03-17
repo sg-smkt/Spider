@@ -1,6 +1,6 @@
 package com.oop.Spider.objects;
 
-public class Reddit {
+public class Searchable {
 	private String search;
 	
 	public String getSearch() {

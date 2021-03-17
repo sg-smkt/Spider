@@ -30,6 +30,8 @@ public class GetReddit {
 	private String subredditName;
 	private List<Submission> submissions;
 	
+	private static final String RedditJson = "./data.json";
+	
 	public GetReddit()
 	{
 	}
@@ -126,20 +128,10 @@ public class GetReddit {
 
 			}
 			json.put("Submissions", jSubmissions);
-			WriteToFile(json);	
-	}
-	
-	private void WriteToFile(JSONObject json)
-	{
-		try(FileWriter file = new FileWriter("data.json"))
-		{
-			file.write(json.toString());
-			file.flush();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
+			
+			JsonService newJson = new JsonService();
+			newJson.writeToFile(RedditJson, json);
+				
 	}
 }
 

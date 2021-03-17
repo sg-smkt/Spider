@@ -57,6 +57,15 @@ private static FileWriter file;
 		}
 	}
 	
+	public void writeToFile(String filename, JSONObject json) {
+		  try(FileWriter file = new FileWriter("data2.json")){
+			  file.write(json.toString());
+			  file.flush();
+		  } catch(IOException e) {
+			  e.printStackTrace();
+		  } 
+	  }
+	
 	// Implement Getter and Setter here 
 	public ArrayList<String> getRedditComments(String filename) {
 		// Initialize ArrayList to Store Reddit Comments into a string

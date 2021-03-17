@@ -1,9 +1,6 @@
 package com.oop.Spider.services;
 
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.oop.Spider.objects.Statistics;
 
@@ -14,6 +11,11 @@ import tech.tablesaw.api.Table;
 public class StatisticsService {
 	private Statistics stats;
 	
+	/**
+	 * <p> This methods normalize the sentimental analsysis score
+	 * @param sentimentalArr double array containing sentimental analysis scores 
+	 * @return the normalized double array containing sentimental analysis scores
+	 */
 	public double[] normalize(double[] sentimentalArr) {
 		int[] coefficientcounter = {-10,-5,0,5,10};
 		for (int i = 0; i < sentimentalArr.length; i++) {

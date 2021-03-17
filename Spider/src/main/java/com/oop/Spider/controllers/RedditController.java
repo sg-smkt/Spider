@@ -1,9 +1,7 @@
 package com.oop.Spider.controllers;
 
-import com.oop.Spider.objects.Reddit;
-import com.oop.Spider.objects.TwitterObject;
+import com.oop.Spider.objects.Searchable;
 import com.oop.Spider.services.RedditService;
-import com.oop.Spider.services.TwitterService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +17,13 @@ public class RedditController {
 	
 	@GetMapping("/redditsearch")
 	public String getRedditPage(Model model) {
-		model.addAttribute("reddit", new Reddit());
+		model.addAttribute("search", new Searchable());
 		return "reddit";
 	}
 	
 	@PostMapping("/redditsearch")
-	public String searchSubreddit(Reddit reddit, Model model) {
-		redditService.searchSubreddit(reddit, model);
+	public String searchSubreddit(Searchable search, Model model) {
+		redditService.searchSubreddit(search, model);
 		return "result";
 	}
 }

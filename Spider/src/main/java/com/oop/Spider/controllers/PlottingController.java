@@ -14,6 +14,7 @@ import com.oop.Spider.services.PlottingService;
 import com.oop.Spider.services.SentimentalService;
 import com.oop.Spider.services.StatisticsService;
 
+import errorhandling.CustomError;
 import tech.tablesaw.api.Table;
 
 @Controller 
@@ -72,8 +73,15 @@ public class PlottingController {
 		classification.initialize();
 		
 		ArrayList<String> sentences = json.getRedditComments(RedditJson);
-		classification.writeClassificationToFile(sentences, SentimentalJson);
 		
+		try {
+			classification.writeClassificationToFile(sentences, SentimentalJson);			
+		} catch(CustomError e) {
+			System.out.println(e.getMessage());
+		} catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+		}
+
 		ArrayList<String> SentimentalTypeArray = json.getSentimentalData(SentimentalJson);
 		Table table = newPlot.createTableByCount(SentimentalTypeArray);
 		newPlot.printTable(table);
@@ -87,7 +95,14 @@ public class PlottingController {
 		classification.initialize();
 		
 		ArrayList<String> sentences = json.getTwitterComments(TweeterJson);
-		classification.writeClassificationToFile(sentences, SentimentalJson);
+		
+		try {
+			classification.writeClassificationToFile(sentences, SentimentalJson);			
+		} catch(CustomError e) {
+			System.out.println(e.getMessage());
+		} catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+		}
 		
 		ArrayList<String> SentimentalTypeArray = json.getSentimentalData(SentimentalJson);
 		Table table = newPlot.createTableByCount(SentimentalTypeArray);
@@ -104,11 +119,17 @@ public class PlottingController {
 		
 		ArrayList<String> sentences = json.getRedditComments(RedditJson);
 		
-		double[] sentimentalScore = new double[5];
-		sentimentalScore = classification.SentimentalCalculation(sentences);
+		try {
+			double[] sentimentalScore = new double[5];
+			sentimentalScore = classification.SentimentalCalculation(sentences);
+			Statistics statistics = newStats.printStats(sentimentalScore);
+			model.addAttribute("statistics", statistics);
+		} catch(CustomError e) {
+			System.out.println(e.getMessage());
+		} catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+		}
 		
-		Statistics statistics = newStats.printStats(sentimentalScore);
-		model.addAttribute("statistics", statistics);
 		return "plotting";
 	}
 	
@@ -119,11 +140,17 @@ public class PlottingController {
 		
 		ArrayList<String> sentences = json.getTwitterComments(TweeterJson);
 		
-		double[] sentimentalScore = new double[5];
-		sentimentalScore = classification.SentimentalCalculation(sentences);
+		try {
+			double[] sentimentalScore = new double[5];
+			sentimentalScore = classification.SentimentalCalculation(sentences);	
+			Statistics statistics = newStats.printStats(sentimentalScore);
+			model.addAttribute("statistics", statistics);
+		} catch(CustomError e) {
+			System.out.println(e.getMessage());
+		} catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+		}
 		
-		Statistics statistics = newStats.printStats(sentimentalScore);
-		model.addAttribute("statistics", statistics);
 		return "plotting";
 	}
 }

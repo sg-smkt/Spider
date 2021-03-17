@@ -1,7 +1,7 @@
 package com.oop.Spider.services;
 
 import com.oop.Spider.services.GetReddit;
-import com.oop.Spider.objects.Reddit;
+import com.oop.Spider.objects.Searchable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,9 @@ public class RedditService {
 	@Autowired
 	private static GetReddit getReddit = new GetReddit();
 	
-	public void searchSubreddit(Reddit reddit, Model model) {
-		model.addAttribute("reddit", reddit);
-		initialize(reddit.getSearch());
+	public void searchSubreddit(Searchable search, Model model) {
+		model.addAttribute("reddit", search);
+		initialize(search.getSearch());
 		
 		
 		System.out.println("Crawling Done");

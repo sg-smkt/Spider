@@ -11,7 +11,6 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/">
 
-    <!-- Bootstrap core CSS -->
      <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
@@ -62,7 +61,7 @@
             <h1 class="h2">Twitter Search</h1>
 				Spider Search~
           </div>
-          <form action="#" th:action="@{/twittersearch}" th:object="${twitter}" method="post">
+          <form action="#" th:action="@{/twittersearch}" th:object="${search}" method="post">
 	       	<div class="input-group mb-3">
 			  <div class="input-group-prepend">
 			    <span class="input-group-text" id="inputGroup-sizing-default">Twitter Search</span>

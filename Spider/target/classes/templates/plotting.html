@@ -13,7 +13,6 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/">
 
-    <!-- Bootstrap core CSS -->
      <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
@@ -62,7 +61,7 @@
         <main role="main" class="col-md-6 col-lg-9 pt-3 px-4 shifting">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
             <h1 class="h2">Sentimental Analysis</h1>
-				Spider Search~
+				Spider Plotting and Stats~
           </div>
           
           <div class="container">
@@ -159,93 +158,5 @@
 			
         </main>
       </div>
-    </div>     <script>
-        var target_redditBarPlot = document.getElementById('redditBarPlot');
-        var layout = {
-    title: 'Sentimental By Count',
-    height: 700,
-    width: 900,
-
-
-};
-
-var trace0 =
-{
-x: [0.0, 56.0, 274.0, 58.0, 6.0],
-y: ["Very Negative","Negative","Neurtal","Positive","Very Positive"],
-orientation: 'h',
-xaxis: 'x',
-yaxis: 'y',
-type: 'bar',
-name: '',
-};
-
-        var data = [ trace0];
-Plotly.newPlot(target_redditBarPlot, data, layout);            </script>
-
-    <script>
-        var target_redditPieChart = document.getElementById('redditPieChart');
-        var layout = {
-    title: 'Sentimental By Percentage',
-    height: 600,
-    width: 800,
-
-
-};
-
-var trace0 =
-    {
-        labels: ["Very Negative","Negative","Neurtal","Positive","Very Positive"],
-        values: [0.0, 56.0, 274.0, 58.0, 6.0],
-        type: 'pie',
-        name: '',
- }
-
-        var data = [ trace0];
-Plotly.newPlot(target_redditPieChart, data, layout);            </script>
-
-    <script>
-        var target_twitterBarPlot = document.getElementById('twitterBarPlot');
-        var layout = {
-    title: 'Sentimental By Count',
-    height: 700,
-    width: 900,
-
-
-};
-
-var trace0 =
-{
-x: [0.0, 5.0, 35.0, 0.0, 0.0],
-y: ["Very Negative","Negative","Neurtal","Positive","Very Positive"],
-orientation: 'h',
-xaxis: 'x',
-yaxis: 'y',
-type: 'bar',
-name: '',
-};
-
-        var data = [ trace0];
-Plotly.newPlot(target_twitterBarPlot, data, layout);            </script>
-
-    <script>
-        var target_twitterPieChart = document.getElementById('twitterPieChart');
-        var layout = {
-    title: 'Sentimental By Percentage',
-    height: 600,
-    width: 800,
-
-
-};
-
-var trace0 =
-    {
-        labels: ["Very Negative","Negative","Neurtal","Positive","Very Positive"],
-        values: [0.0, 5.0, 35.0, 0.0, 0.0],
-        type: 'pie',
-        name: '',
- }
-
-        var data = [ trace0];
-Plotly.newPlot(target_twitterPieChart, data, layout);            </script>
+    </div> 
 

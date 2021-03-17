@@ -17,6 +17,7 @@ import tech.tablesaw.plotly.api.PiePlot;
 
 @Service
 public class PlottingService {
+	
 	public Table createTableByCount(ArrayList<String> data) {
 		String[] sentimentalType = {"Very Negative", "Negative", "Neurtal", "Positive", "Very Positive"};
 		int[] sentimentalCounter = new int[5];

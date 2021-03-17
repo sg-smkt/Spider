@@ -22,6 +22,8 @@ public class GetTwitter {
 	 private Twitter twitterr;
      ArrayList<String> TweetsList = new ArrayList<String>();
      QueryResult result;
+     
+     private static final String TweeterJson = "./data2.json";
 	
 	  public void authenticate(String consumerkey, String consumerSecret, String accessToken, String accessTokenSecret){
 	    // Makes an instance of Twitter - this is re-useable and thread safe.
@@ -42,12 +44,8 @@ public class GetTwitter {
 	   	  
 	   	  try {
 	   		  result = twitterr.search(query);
-	   		  int counter = 0;
 	   		  System.out.println("Count: " + result.getTweets().size());
 	   		  for (Status tweet: result.getTweets()) {
-	   			  counter ++;
-//	   			  System.out.println("Tweet #" + counter +": @"+tweet.getUser().getName() + " tweeted \"" + tweet.getText() + "\" Retweets:" + tweet.getRetweetCount());
-//	   			  System.out.println("=============");
 	   			  TweetsList.add(tweet.getText());
 	   		  }
 	   	  }
@@ -72,15 +70,8 @@ public class GetTwitter {
 			  }
 		  }
 		  json.put("Tweets", jarray);
-		  WriteToFile(json);
-	  }
-	  
-	  private void WriteToFile(JSONObject json) {
-		  try(FileWriter file = new FileWriter("data2.json")){
-			  file.write(json.toString());
-			  file.flush();
-		  } catch(IOException e) {
-			  e.printStackTrace();
-		  }
+		  
+		  JsonService newjson = new JsonService();
+		  newjson.writeToFile(TweeterJson, json);
 	  }
 }
