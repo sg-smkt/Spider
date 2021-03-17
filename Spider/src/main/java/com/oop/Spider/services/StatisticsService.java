@@ -3,12 +3,17 @@ package com.oop.Spider.services;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import com.oop.Spider.objects.Statistics;
 
 import tech.tablesaw.api.DoubleColumn;
 import tech.tablesaw.api.Table;
 
 @Service
 public class StatisticsService {
+	private Statistics stats;
+	
 	public double[] normalize(double[] sentimentalArr) {
 		int[] coefficientcounter = {-10,-5,0,5,10};
 		for (int i = 0; i < sentimentalArr.length; i++) {
@@ -50,7 +55,7 @@ public class StatisticsService {
 		}
 	}
 	
-	public void printStats(double[] sentimentalScore) {
+	public Statistics printStats(double[] sentimentalScore) {
 		StatisticsService newStats = new StatisticsService();
 		double[] normalizedScore = newStats.normalize(sentimentalScore);
 		DoubleColumn ss = DoubleColumn.create("Sentimental Data", normalizedScore);
@@ -61,5 +66,8 @@ public class StatisticsService {
 		System.out.println("Standard Deviation: " + newStats.getSD(ss));
 		System.out.println("Variance :" + newStats.getVar(ss));	
 		System.out.println("Sentimental Type (Mode): " + newStats.getModeSentimenet(newStats.getMean(ss)));
+
+		stats = new Statistics(newStats.getMean(ss), newStats.getSD(ss), newStats.getVar(ss), newStats.getModeSentimenet(newStats.getMean(ss)));
+		return stats;
 	}
 }

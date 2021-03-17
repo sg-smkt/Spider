@@ -24,7 +24,6 @@ public class TwitterService {
 	}
 	
 	public static void initialize(String search) {
-		System.out.println("Testing123");
 		GetTwitter bigBird = new GetTwitter();
 		bigBird.authenticate(consumerkey, consumerSecret, accessToken, accessTokenSecret);
 		bigBird.saQuery("covid");	

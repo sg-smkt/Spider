@@ -57,10 +57,10 @@ public class PlottingService {
 		System.out.println(table);
 	}
 	
-	public void displayBarChart(Table table) {
-		String javascript = HorizontalBarPlot.create("Sentimental By Count", table, "Sentimental Type", "Count").asJavascript("newBarPlot");
+	public void displayBarChart(Table table, String filename, String javascriptVar) {
+		String javascript = HorizontalBarPlot.create("Sentimental By Count", table, "Sentimental Type", "Count").asJavascript(javascriptVar);
         try(
-        FileWriter fw = new FileWriter("./src/main/resources/templates/plotting.html", true);
+        FileWriter fw = new FileWriter(filename, true);
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw)){
             out.println(javascript);
@@ -70,15 +70,13 @@ public class PlottingService {
 		
 	}
 	
-	public void displayPieChart(Table table) {
-		String javascript = PiePlot.create("Sentimental By Percentage", table, "Sentimental Type", "Count").asJavascript("newPieChart");
+	public void displayPieChart(Table table, String filename, String javascriptVar) {
+		String javascript = PiePlot.create("Sentimental By Percentage", table, "Sentimental Type", "Count").asJavascript(javascriptVar);
 		try(
-		FileWriter fw = new FileWriter("./src/main/resources/templates/plotting.html", true);
+		FileWriter fw = new FileWriter(filename, true);
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw)){
             out.println(javascript);
-            out.println("</body>");
-            out.println("</html>");
         } catch(IOException e){
             e.getMessage();
         }
