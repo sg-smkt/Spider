@@ -1,4 +1,4 @@
-package unittesting;
+package com.oop.unittesting;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,28 +11,28 @@ import com.oop.Spider.services.SentimentalService;
 
 import errorhandling.CustomError;
 
-class PlottingTest {
-	static SentimentalService plottingTest;
+class SentimentalTest {
+	static SentimentalService sentimentalTest;
 	static ArrayList<String> sentences;
 	static ArrayList<String> sentences2;
 	private final static String filename = "./test.txt";
 	
 	@BeforeAll
 	public static void setup() {
-		plottingTest = new SentimentalService();
+		sentimentalTest = new SentimentalService();
 		sentences = new ArrayList<String>();
 	}
 	
 	@Test
 	public void testwriteClassificationToFile() {
-		assertThrows(CustomError.class, () -> {plottingTest.writeClassificationToFile(sentences, filename);});
-		assertThrows(NullPointerException.class, () -> {plottingTest.writeClassificationToFile(sentences2, filename);});
+		assertThrows(CustomError.class, () -> {sentimentalTest.writeClassificationToFile(sentences, filename);});
+		assertThrows(NullPointerException.class, () -> {sentimentalTest.writeClassificationToFile(sentences2, filename);});
 	}
 	
 	@Test
 	public void testSentimentalCalculation() {
-		assertThrows(CustomError.class,() -> {plottingTest.SentimentalCalculation(sentences);});
-		assertThrows(NullPointerException.class, () -> {plottingTest.SentimentalCalculation(sentences2);});
+		assertThrows(CustomError.class,() -> {sentimentalTest.SentimentalCalculation(sentences);});
+		assertThrows(NullPointerException.class, () -> {sentimentalTest.SentimentalCalculation(sentences2);});
 	}
 
 }

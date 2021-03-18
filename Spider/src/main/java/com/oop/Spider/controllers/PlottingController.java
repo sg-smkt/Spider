@@ -1,5 +1,6 @@
 package com.oop.Spider.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,18 +76,20 @@ public class PlottingController {
 		ArrayList<String> sentences = json.getRedditComments(RedditJson);
 		
 		try {
-			classification.writeClassificationToFile(sentences, SentimentalJson);			
+			classification.writeClassificationToFile(sentences, SentimentalJson);
+			ArrayList<String> SentimentalTypeArray = json.getSentimentalData(SentimentalJson);
+			Table table = newPlot.createTableByCount(SentimentalTypeArray);
+			newPlot.printTable(table);
+			newPlot.displayBarChart(table, PlottingFile, jsBarChartVarReddit);
+			newPlot.displayPieChart(table, PlottingFile, jsPieChartVarReddit);	
 		} catch(CustomError e) {
 			System.out.println(e.getMessage());
 		} catch(NullPointerException e) {
 			System.out.println(e.getMessage());
+		} catch(IOException e) {
+			System.out.println(e.getMessage());
 		}
 
-		ArrayList<String> SentimentalTypeArray = json.getSentimentalData(SentimentalJson);
-		Table table = newPlot.createTableByCount(SentimentalTypeArray);
-		newPlot.printTable(table);
-		newPlot.displayBarChart(table, PlottingFile, jsBarChartVarReddit);
-		newPlot.displayPieChart(table, PlottingFile, jsPieChartVarReddit);	
 		return "plotting";
 	}
 	
@@ -97,18 +100,20 @@ public class PlottingController {
 		ArrayList<String> sentences = json.getTwitterComments(TweeterJson);
 		
 		try {
-			classification.writeClassificationToFile(sentences, SentimentalJson);			
+			classification.writeClassificationToFile(sentences, SentimentalJson);		
+			ArrayList<String> SentimentalTypeArray = json.getSentimentalData(SentimentalJson);
+			Table table = newPlot.createTableByCount(SentimentalTypeArray);
+			newPlot.printTable(table);
+			newPlot.displayBarChart(table, PlottingFile, jsBarChartVarTwitter);
+			newPlot.displayPieChart(table, PlottingFile, jsPieChartVarTwitter);	
 		} catch(CustomError e) {
 			System.out.println(e.getMessage());
 		} catch(NullPointerException e) {
 			System.out.println(e.getMessage());
+		}catch(IOException e) {
+			System.out.println(e.getMessage());
 		}
-		
-		ArrayList<String> SentimentalTypeArray = json.getSentimentalData(SentimentalJson);
-		Table table = newPlot.createTableByCount(SentimentalTypeArray);
-		newPlot.printTable(table);
-		newPlot.displayBarChart(table, PlottingFile, jsBarChartVarTwitter);
-		newPlot.displayPieChart(table, PlottingFile, jsPieChartVarTwitter);	
+
 		return "plotting";
 	}
 	
