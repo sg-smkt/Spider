@@ -9,25 +9,30 @@ import org.junit.jupiter.api.Test;
 
 import com.oop.Spider.services.SentimentalService;
 
+import errorhandling.CustomError;
+
 class PlottingTest {
-	SentimentalService plottingTest;
+	static SentimentalService plottingTest;
+	static ArrayList<String> sentences;
+	static ArrayList<String> sentences2;
 	private final static String filename = "./test.txt";
-	ArrayList<String> sentences;
 	
 	@BeforeAll
 	public static void setup() {
-		new SentimentalService();
-		new ArrayList<String>();
+		plottingTest = new SentimentalService();
+		sentences = new ArrayList<String>();
 	}
 	
 	@Test
 	public void testwriteClassificationToFile() {
-		assertThrows(NullPointerException.class, () -> {plottingTest.writeClassificationToFile(sentences, filename);});
+		assertThrows(CustomError.class, () -> {plottingTest.writeClassificationToFile(sentences, filename);});
+		assertThrows(NullPointerException.class, () -> {plottingTest.writeClassificationToFile(sentences2, filename);});
 	}
 	
 	@Test
 	public void testSentimentalCalculation() {
-		assertThrows(NullPointerException.class,() -> {plottingTest.SentimentalCalculation(sentences);});
+		assertThrows(CustomError.class,() -> {plottingTest.SentimentalCalculation(sentences);});
+		assertThrows(NullPointerException.class, () -> {plottingTest.SentimentalCalculation(sentences2);});
 	}
 
 }

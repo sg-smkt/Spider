@@ -58,7 +58,7 @@ private static FileWriter file;
 	}
 	
 	public void writeToFile(String filename, JSONObject json) {
-		  try(FileWriter file = new FileWriter("data2.json")){
+		  try(FileWriter file = new FileWriter(filename)){
 			  file.write(json.toString());
 			  file.flush();
 		  } catch(IOException e) {
@@ -92,6 +92,18 @@ private static FileWriter file;
 		JSONArray TwitterTweets = (JSONArray) TwitterObject.get("Tweets");
 		textCollection = TwitterTweets;
 		return textCollection;
+	}
+	
+	public Object getRedditObject(String filename) {
+		// filename = "./data.json"
+		JSONObject RedditObject = JsonService.read(filename);
+		return RedditObject;
+	}
+	
+	public Object getTwitterObject(String filename) {
+		// filename = "./data1.json"
+		JSONObject TwitterObject = JsonService.read(filename);
+		return TwitterObject;
 	}
 	
 	// Implement Getter and Setter here 

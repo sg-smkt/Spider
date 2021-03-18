@@ -1,5 +1,7 @@
 package com.oop.Spider.services;
 
+import java.util.Scanner;
+
 import com.oop.Spider.services.GetReddit;
 import com.oop.Spider.objects.Searchable;
 
@@ -28,19 +30,35 @@ public class RedditService {
 	private void initialize(String search) {
 		getReddit = new GetReddit(username, password, clientId, clientSecret);
 		Query(search);
+		//Search(search);
 	}
 	
-	private void Query(String search)
+	private static void Search(String search)
 	{
 		try
 		{
-			getReddit.SetSubreddit(search);
-			
-			getReddit.Crawl();
+			getReddit.SearchSubreddits(search, 100);
 		}
 		catch (Exception e)
 		{
 			System.out.println(e);
 		}
 	}
+	
+	private static void Query(String search)
+	{
+		try
+		{			
+			getReddit.Crawl(search);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+	
+	/*
+	 * Search Title 
+	 * Search SubReddit Names
+	 */
 }
