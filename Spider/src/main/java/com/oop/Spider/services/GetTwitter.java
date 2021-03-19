@@ -1,6 +1,5 @@
 package com.oop.Spider.services;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -8,6 +7,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.oop.Spider.Interface.CrawlerInterface;
+
+import errorhandling.CustomError;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
@@ -17,7 +19,7 @@ import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.TwitterException;
 
 @Service
-public class GetTwitter {
+public class GetTwitter extends CrawlerInterface{
 	
 	 private Twitter twitterr;
      ArrayList<String> TweetsList = new ArrayList<String>();
@@ -38,27 +40,21 @@ public class GetTwitter {
 		 twitterr = tf.getInstance(); 
 		}
 	  
-	  public void saQuery (String searchTerm){
+	  public void Crawl (String searchTerm) throws IOException, CustomError, TwitterException{
 	   	  Query query = new Query(searchTerm);
 	   	  query.setCount(5);
 	   	  
-	   	  try {
-	   		  result = twitterr.search(query);
-	   		  System.out.println("Count: " + result.getTweets().size());
-	   		  for (Status tweet: result.getTweets()) {
-	   			  TweetsList.add(tweet.getText());
-	   		  }
-	   	  }
-	   	  catch(TwitterException e) {
-	   		  e.printStackTrace();
-	   	  }
-	   	  System.out.println(TweetsList);
+   		  result = twitterr.search(query);
+   		  System.out.println("Count: " + result.getTweets().size());
+   		  for (Status tweet: result.getTweets()) {
+   			  TweetsList.add(tweet.getText());
+   		  }
 	   	  
 	   	  ConvertToJson(searchTerm);
    	  }  
 	  
 	  
-	  private void ConvertToJson(String searchTerm)
+	  private void ConvertToJson(String searchTerm) throws IOException, CustomError
 	  {
 		  JSONObject json = new JSONObject();
 		  json.put("Hashtag Name", searchTerm);

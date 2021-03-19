@@ -1,28 +1,26 @@
 package com.oop.unittesting;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import com.oop.Spider.services.JsonService;
-import com.oop.Spider.services.PlottingService;
-import com.oop.Spider.services.StatisticsService;
 
 import errorhandling.CustomError;
-import tech.tablesaw.api.Table;
 
 public class Testing {
-	private static final String filename = "test.html";
-	private static final String var = "testingvariable";
+	private static final String filename = "./data.json";
 	
-	public static void main(String[] args) throws CustomError {
-		System.out.println(getFileExtension(filename));
+	public static void main(String[] args) throws CustomError, ParseException, IOException {
+		getSentimentalData(filename);
 	}
 	
-	public static String getFileExtension(String fullName) {
-	    String fileName = new File(fullName).getName();
-	    int dotIndex = fileName.lastIndexOf('.');
-	    return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
+	public static ArrayList<String> getSentimentalData(String filename) throws ParseException, IOException {
+		JSONObject jsonObject = JsonService.read(filename);
+		JSONArray jsonArray = (JSONArray) jsonObject.get("Sentimental Type Data");
+		return jsonArray;
 	}
 }

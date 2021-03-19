@@ -20,17 +20,14 @@ public class RedditService {
 	private static GetReddit getReddit = new GetReddit();
 	
 	public void searchSubreddit(Searchable search, Model model) {
-		model.addAttribute("reddit", search);
 		initialize(search.getSearch());
-		
-		
-		System.out.println("Crawling Done");
 	}
 	
 	private void initialize(String search) {
 		getReddit = new GetReddit(username, password, clientId, clientSecret);
+		SearchTitle(search);
+		SearchTitle(search);
 		Query(search);
-		//Search(search);
 	}
 	
 	private static void Search(String search)
@@ -38,6 +35,18 @@ public class RedditService {
 		try
 		{
 			getReddit.SearchSubreddits(search, 100);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+
+	private static void SearchTitle(String search)
+	{
+		try
+		{
+			getReddit.SearchTitle(search);
 		}
 		catch (Exception e)
 		{

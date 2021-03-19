@@ -1,9 +1,12 @@
 package com.oop.Spider.services;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import org.ejml.simple.SimpleMatrix;
+import org.json.simple.JSONObject;
 
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
@@ -45,9 +48,10 @@ public class SentimentalService {
 	 * @param filename the specified filename to write the sentimental analysis data
 	 * @throws UserDataException If sentences size is less than 1, throw "Sentence size is less then 1" message to console 
 	 * @throws NullPointerException ArrayList is not initialized 
+	 * @throws IOException If there's error during input or output
 	 * @since 1.0
 	 */
-	public void writeClassificationToFile(ArrayList<String> sentences, String filename) throws CustomError, NullPointerException {
+	public void writeClassificationToFile(ArrayList<String> sentences, String filename) throws CustomError, NullPointerException, IOException {
 		ArrayList<String> classificationList = new ArrayList<String>();
 		if (sentences.size() > 0) {
 			for (int i = 0; i < sentences.size(); i++) {
@@ -58,9 +62,12 @@ public class SentimentalService {
 					classificationList.add(type);
 				}
 			}
-			json.write(classificationList, filename);	
+			HashMap<String, ArrayList<String>> hashData = new HashMap<String, ArrayList<String>>();
+			hashData.put("Sentimental Type Data", classificationList);
+			JSONObject obj = new JSONObject(hashData);
+			json.writeToFile(filename, obj);	
 		} else {
-			throw new CustomError("Sentence size is less then 1");
+			throw new CustomError("Sentence size is less then 1. No sentence to parse into sentimental analysis");
 		}
 	}
 	
@@ -103,7 +110,7 @@ public class SentimentalService {
 			
 			return sentimentalScore;	
 		} else {
-			throw new CustomError("Sentence size is less then 1");
+			throw new CustomError("Sentence size is less then 1. No sentence to parse into sentimental analysis");
 		}
 		
 	} 

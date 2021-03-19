@@ -1,7 +1,10 @@
 package com.oop.Spider.controllers;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.json.simple.parser.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,9 +76,8 @@ public class PlottingController {
 	public String postPlotReddit() {
 		classification.initialize();
 		
-		ArrayList<String> sentences = json.getRedditComments(RedditJson);
-		
 		try {
+			ArrayList<String> sentences = json.getRedditComments(RedditJson);
 			classification.writeClassificationToFile(sentences, SentimentalJson);
 			ArrayList<String> SentimentalTypeArray = json.getSentimentalData(SentimentalJson);
 			Table table = newPlot.createTableByCount(SentimentalTypeArray);
@@ -85,6 +87,10 @@ public class PlottingController {
 		} catch(CustomError e) {
 			System.out.println(e.getMessage());
 		} catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+		}  catch(ParseException e) {
+			System.out.println(e.getMessage());
+		} catch(FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch(IOException e) {
 			System.out.println(e.getMessage());
@@ -97,9 +103,8 @@ public class PlottingController {
 	public String postPlotTwitter() {
 		classification.initialize();
 		
-		ArrayList<String> sentences = json.getTwitterComments(TweeterJson);
-		
 		try {
+			ArrayList<String> sentences = json.getTwitterComments(TweeterJson);
 			classification.writeClassificationToFile(sentences, SentimentalJson);		
 			ArrayList<String> SentimentalTypeArray = json.getSentimentalData(SentimentalJson);
 			Table table = newPlot.createTableByCount(SentimentalTypeArray);
@@ -110,9 +115,13 @@ public class PlottingController {
 			System.out.println(e.getMessage());
 		} catch(NullPointerException e) {
 			System.out.println(e.getMessage());
-		}catch(IOException e) {
+		} catch(ParseException e) {
 			System.out.println(e.getMessage());
-		}
+		} catch(FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch(IOException e) {
+			System.out.println(e.getMessage());
+		} 
 
 		return "plotting";
 	}
@@ -122,9 +131,8 @@ public class PlottingController {
 		// Instance for Sentimental Analysis
 		classification.initialize();
 		
-		ArrayList<String> sentences = json.getRedditComments(RedditJson);
-		
 		try {
+			ArrayList<String> sentences = json.getRedditComments(RedditJson);
 			double[] sentimentalScore = new double[5];
 			sentimentalScore = classification.SentimentalCalculation(sentences);
 			Statistics statistics = newStats.printStats(sentimentalScore);
@@ -132,6 +140,10 @@ public class PlottingController {
 		} catch(CustomError e) {
 			System.out.println(e.getMessage());
 		} catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+		} catch(IOException e) {
+			System.out.println(e.getMessage());
+		} catch(ParseException e) {
 			System.out.println(e.getMessage());
 		}
 		
@@ -143,9 +155,8 @@ public class PlottingController {
 		// Instance for Sentimental Analysis
 		classification.initialize();
 		
-		ArrayList<String> sentences = json.getTwitterComments(TweeterJson);
-		
 		try {
+			ArrayList<String> sentences = json.getTwitterComments(TweeterJson);
 			double[] sentimentalScore = new double[5];
 			sentimentalScore = classification.SentimentalCalculation(sentences);	
 			Statistics statistics = newStats.printStats(sentimentalScore);
@@ -153,6 +164,10 @@ public class PlottingController {
 		} catch(CustomError e) {
 			System.out.println(e.getMessage());
 		} catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+		} catch(IOException e) {
+			System.out.println(e.getMessage());
+		} catch(ParseException e) {
 			System.out.println(e.getMessage());
 		}
 		

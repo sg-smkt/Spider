@@ -1,5 +1,6 @@
 package com.oop.Spider.services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
@@ -7,8 +8,11 @@ import org.springframework.ui.Model;
 
 import com.oop.Spider.objects.Searchable;
 
+import errorhandling.CustomError;
+import twitter4j.TwitterException;
+
 @Service
-public class TwitterService {
+public class TwitterService{
 	
 	private static final String consumerkey = "2bGiyfbtRzEoirN2eCBPrTa3x";
 	private static final String consumerSecret = "PfKt8S5yXFKChcOBRfoo858YDSvWnpTxE4KDoNivtiYrtuDD6e";
@@ -18,14 +22,14 @@ public class TwitterService {
 	
     ArrayList<String> TweetsList = new ArrayList<String>();
 	
-	public void searchHashTag(Searchable search, Model model) {
+	public void searchHashTag(Searchable search, Model model) throws IOException, CustomError, TwitterException {
 		model.addAttribute("twitter", search);
 		initialize(search.getSearch());
 	}
 	
-	public static void initialize(String search) {
+	public static void initialize(String search) throws IOException, CustomError, TwitterException {
 		GetTwitter bigBird = new GetTwitter();
 		bigBird.authenticate(consumerkey, consumerSecret, accessToken, accessTokenSecret);
-		bigBird.saQuery("covid");	
+		bigBird.Crawl("covid");	
 	}
 }

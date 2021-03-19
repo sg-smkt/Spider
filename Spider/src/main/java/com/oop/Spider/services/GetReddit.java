@@ -22,14 +22,15 @@ import net.dean.jraw.tree.RootCommentNode;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.oop.Spider.Interface.CrawlerInterface;
+
 import errorhandling.CustomError;
 
 import org.json.simple.JSONArray;
-import java.io.FileWriter;
 import java.io.IOException;
 
 @Service
-public class GetReddit {
+public class GetReddit extends CrawlerInterface {
 	private Credentials oauthCreds;
 	private UserAgent userAgent;
 	private RedditClient client;
@@ -38,6 +39,8 @@ public class GetReddit {
 	//private List<Submission> submissions;
 	
 	private static final String RedditJson = "./data.json";
+	private static final String RedditSubRedditJson = "./rsubreddit.json";
+	private static final String RedditTitleJson = "./rtitle.json";
 	
 	public GetReddit()
 	{
@@ -65,7 +68,7 @@ public class GetReddit {
 	}
 	
 	// Searches for and lists Subreddits that contain the term specified.
-	public void SearchSubreddits(String term, int size) throws CustomError
+	public void SearchSubreddits(String term, int size) throws CustomError, IOException
 	{
 		// Runs a check for special characters.
 		term = CheckSpecials(term);
@@ -78,11 +81,19 @@ public class GetReddit {
 		
 		List<Subreddit> subreddits = paginator.next();
 		
+		JSONObject json = new JSONObject();
+		json.put("Subreddit Term", term);
+		JSONArray jarray = new JSONArray();
 		for (Subreddit sr : subreddits)
 		{
-            System.out.println(sr.getName());
+            jarray.add(sr.getName());
 		}
+		json.put("Subreddits", jarray);
+		
+		JsonService newjson = new JsonService();
+		newjson.writeToFile(RedditSubRedditJson, json);
 	}
+	
 	
 	public void CheckSubredditName(String name) throws CustomError
 	{
@@ -103,7 +114,7 @@ public class GetReddit {
 	}
 	
 	// Searches for posts that contain the specified term in the title in all of Reddit.
-	public void SearchTitle(String term) throws CustomError
+	public void SearchTitle(String term) throws CustomError, IOException
 	{
 		term = CheckSpecials(term);
 		
@@ -115,14 +126,21 @@ public class GetReddit {
 				.build();
 		List<Submission> submissions = paginator.next();
 		
+		JSONObject json = new JSONObject();
+		json.put("Subreddit Term", term);
+		JSONArray jarray = new JSONArray();
 		for (Submission post : submissions)
 		{
-            System.out.println(post.getTitle());
+            jarray.add(post.getTitle());
 		}
+		json.put("Subreddits", jarray);
+		
+		JsonService newjson = new JsonService();
+		newjson.writeToFile(RedditTitleJson, json);
 	}
 	
 	// Crawls the specified subreddit to get post information.
-	public void Crawl(String subredditName) throws CustomError
+	public void Crawl(String subredditName) throws CustomError, IOException
 	{
 		CheckSubredditName(subredditName);
 		/* Additional options:
@@ -151,7 +169,7 @@ public class GetReddit {
 	}
 	
 	// Formats the submission information and its comments into a JSON object.
-		private void ConvertToJson(List<Submission> submissions)
+		private void ConvertToJson(List<Submission> submissions) throws CustomError, IOException
 		{
 			// Create a Json object that holds name and array of submissions.
 			JSONObject json = new JSONObject();

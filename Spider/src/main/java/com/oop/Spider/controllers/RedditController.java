@@ -1,5 +1,6 @@
 package com.oop.Spider.controllers;
 
+import com.oop.Spider.Interface.SearchInterface;
 import com.oop.Spider.objects.Searchable;
 import com.oop.Spider.services.RedditService;
 
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller 
-public class RedditController {
+public class RedditController extends SearchInterface{
 	
 	@Autowired
 	private RedditService redditService;
@@ -22,7 +23,7 @@ public class RedditController {
 	}
 	
 	@PostMapping("/redditsearch")
-	public String searchSubreddit(Searchable search, Model model) {
+	public String search(Searchable search, Model model) {
 		redditService.searchSubreddit(search, model);
 		return "result";
 	}

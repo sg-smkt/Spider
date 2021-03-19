@@ -89,7 +89,7 @@ public class StatisticsService {
 		} else if (sentimentalMean >= 1.5 && sentimentalMean < 2) {
 			return "Very Positive";
 		} else {
-			throw new CustomError("Mean value needs to be within the range of -2.0 < x < 2.0");
+			throw new CustomError("Mean value needs to be within the range of -2.0 < x < 2.0. Requires the input of getMeanSentimenet");
 		}
 	}
 	

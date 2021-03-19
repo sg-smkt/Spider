@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -14,67 +13,75 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
+import errorhandling.CustomError;
+
 @Service
 public class JsonService {
 	
-private static FileWriter file;
-	
-	public static JSONObject read(String filename) {
+	/**
+	 * <p> This method read the data from the specificed file and returns the json object</p>
+	 * @param filename specify a value file to be read into json object
+	 * @return The json Object
+	 * @throws FileNotFoundException If the file is not found 
+	 * @throws IOException If there's error during input or output
+	 * @throws ParseException If there's error during parsing of data
+	 * @see <a href="https://code.google.com/archive/p/json-simple/">Json Simple</a>
+	 * @since 1.0
+	 */
+	public static JSONObject read(String filename) throws IOException, ParseException, FileNotFoundException{
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObj = null;
-		try {
-			FileReader reader = new FileReader(filename);
-			Object obj = jsonParser.parse(reader);
-			jsonObj = (JSONObject) obj;
-		} catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+		FileReader reader = new FileReader(filename);
+		Object obj = jsonParser.parse(reader);
+		jsonObj = (JSONObject) obj;
 		return jsonObj;
 	}
 	
-	public void write(ArrayList<String> data, String filename) {
-		// Using HashMap to implement Type Safety to JSONObject
-		HashMap<String, ArrayList<String>> hashData = new HashMap<String, ArrayList<String>>();
-		hashData.put("Sentimental Type Data", data);
-		JSONObject obj = new JSONObject(hashData);
-		
-		try {
-			file = new FileWriter(filename);
-			file.write(obj.toJSONString());
-			System.out.println("Added data to File");
-		}catch(IOException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				file.close();	
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
+	/**
+	 * <p> This method write data to the file specified </p>
+	 * @param filename The filename to write the data to
+	 * @param json The data containing infomation to be written to the specified file
+	 * @throws CustomError Thrown if filename is empty
+	 * @since 1.0
+	 */
+	public void writeToFile(String filename, Object data) throws IOException, CustomError {
+		if ("".equals(filename)) {
+			throw new CustomError("Filename is empty");
+		} else {
+			FileWriter file = new FileWriter(filename);
+			file.write(data.toString());
+			file.flush();
+			file.close();	
 		}
-	}
-	
-	public void writeToFile(String filename, JSONObject json) {
-		  try(FileWriter file = new FileWriter(filename)){
-			  file.write(json.toString());
-			  file.flush();
-		  } catch(IOException e) {
-			  e.printStackTrace();
-		  } 
 	  }
 	
-	// Implement Getter and Setter here 
-	public ArrayList<String> getRedditComments(String filename) {
+	
+	/**
+	 * <p> This method get the reddit comments from the file specified. </p>
+	 * <p> The file specified has to contain the json with the following format </p>
+	 * {
+	 * "Subreddit Name:": String 
+	 * "Submissions": [{
+	 * 		"Score": int 
+	 * 		"Comments": [String, String...],
+	 * 		"Id": String
+	 * 		"Submission Name": String
+	 *  }]
+	 *  }
+	 * @param filename The filename to read the data from
+	 * @return The arraylist containing the list of reddit comments within the sub-subreddit
+	 * @throws ParseException If there's error during parsing of data
+	 * @throws IOException If there's error during input or output
+	 * @see GetReddit.ConvertToJson
+	 * @since 1.0
+	 */
+	public ArrayList<String> getRedditComments(String filename) throws ParseException, IOException, NullPointerException, FileNotFoundException {
 		// Initialize ArrayList to Store Reddit Comments into a string
 		ArrayList<String> textCollection = new ArrayList<String>();
 		String text = "";
-		JSONObject RedditObject = JsonService.read(filename);
-		// ABLE TO DO ERROR CHECKING HERE
-		JSONArray RedditSubmission = (JSONArray) RedditObject.get("Submissions");
-		Iterator<JSONObject> iterator = RedditSubmission.iterator();
+		JSONObject redditObject = JsonService.read(filename);
+		JSONArray redditSubmission = (JSONArray) redditObject.get("Submissions");
+		Iterator<JSONObject> iterator = redditSubmission.iterator();
 		while (iterator.hasNext()) {
 			ArrayList<String> RedditComments = (ArrayList<String>) iterator.next().get("Comments");
 			for (int i = 1; i < RedditComments.size(); i++) {
@@ -85,33 +92,79 @@ private static FileWriter file;
 		return textCollection;
 	}
 	
-	public ArrayList<String> getTwitterComments(String filename) {
+	/**
+	 * <p> This method get the tweeter comments from the file specified. </p>
+	 * <p> The file specified has to contain the json with the following format </p>
+	 *  {
+	 *  "Tweets" : [String, String],
+	 * 	"Hashtag Name" : String 
+	 *  }
+	 * 
+	 * @param filename The filename to read the data from
+	 * @return The arraylist containing the list of reddit comments within the sub-subreddit
+	 * @throws ParseException If there's error during parsing of data
+	 * @throws IOException If there's error during input or output
+	 * @see GetTwitter.ConvertToJson
+	 * @since 1.0
+	 */
+	public ArrayList<String> getTwitterComments(String filename) throws ParseException, IOException, NullPointerException, FileNotFoundException{
 		ArrayList<String> textCollection = new ArrayList<String>();
-		String text = "";
 		JSONObject TwitterObject = JsonService.read(filename);
 		JSONArray TwitterTweets = (JSONArray) TwitterObject.get("Tweets");
-		textCollection = TwitterTweets;
-		return textCollection;
+		if (TwitterTweets != null) {
+			textCollection = TwitterTweets;
+			return textCollection;
+		} else {
+			throw new NullPointerException();
+		}
 	}
 	
-	public Object getRedditObject(String filename) {
-		// filename = "./data.json"
+	
+	/**
+	 * <p> This method returns the reddit object from the file specified </p>
+	 * @param filename The filename to read the data from
+	 * @return The reddit object
+	 * @throws ParseException If there's error during parsing of data
+	 * @throws IOException If there's error during input or output
+	 * @since 1.0
+	 */
+	public Object getRedditObject(String filename) throws ParseException, IOException {
 		JSONObject RedditObject = JsonService.read(filename);
 		return RedditObject;
 	}
 	
-	public Object getTwitterObject(String filename) {
-		// filename = "./data1.json"
+	/**
+	 * <p> This method returns the twitter object from the file specified </p>
+	 * @param filename The filename to read the data from
+	 * @return The reddit object
+	 * @throws ParseException If there's error during parsing of data
+	 * @throws IOException If there's error during input or output
+	 * @since 1.0
+	 */
+	public Object getTwitterObject(String filename) throws ParseException, IOException {
 		JSONObject TwitterObject = JsonService.read(filename);
 		return TwitterObject;
 	}
 	
-	// Implement Getter and Setter here 
-	public ArrayList<String> getSentimentalData(String filename) {
+	/**
+	 * <p> This method get the sentimental data from the file specified. </p>
+	 * <p> The file specified has to contain the json with the following format </p>
+	 *  {
+	 *   "Sentimental Type Data" : [String, String ... ]
+	 *  }
+	 * @param filename The filename to read the data from
+	 * @return The array list containing the sentimental data
+	 * @throws ParseException If there's error during parsing of data
+	 * @throws IOException If there's error during input or output
+	 * @since 1.0
+	 */
+	public ArrayList<String> getSentimentalData(String filename) throws ParseException, IOException {
 		JSONObject jsonObject = JsonService.read(filename);
 		JSONArray jsonArray = (JSONArray) jsonObject.get("Sentimental Type Data");
-		ArrayList<String> list = new ArrayList<String>();
-		// Custom Error message here?
-		return jsonArray;
+		if (jsonArray != null) {
+			return jsonArray;	
+		} else {
+			throw new NullPointerException();
+		}
 	}
 }

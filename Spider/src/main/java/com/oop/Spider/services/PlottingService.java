@@ -98,11 +98,14 @@ public class PlottingService {
 	public void displayBarChart(Table table, String filename, String javascriptVar) throws CustomError, IOException{
 		if (table != null) {
 			String javascript = HorizontalBarPlot.create("Sentimental By Count", table, "Sentimental Type", "Count").asJavascript(javascriptVar);
-			if (getFileExtension(filename) == "html") {
+			if (getFileExtension(filename).equals("html")) {
+				
 				FileWriter fw = new FileWriter(filename, true);
 		        BufferedWriter bw = new BufferedWriter(fw);
 		        PrintWriter out = new PrintWriter(bw);
-		        out.println(javascript);	
+				out.println(javascript);		
+		        out.flush();
+		      
 			} else {
 				throw new CustomError("Invalid File Type");
 			}	
@@ -124,11 +127,14 @@ public class PlottingService {
 	public void displayPieChart(Table table, String filename, String javascriptVar) throws CustomError, IOException{
 		if (table != null) {
 			String javascript = PiePlot.create("Sentimental By Percentage", table, "Sentimental Type", "Count").asJavascript(javascriptVar);
-			if (getFileExtension(filename) == "html") {
+			if (getFileExtension(filename).equals("html")) {
+				
 				FileWriter fw = new FileWriter(filename, true);
 		        BufferedWriter bw = new BufferedWriter(fw);
 		        PrintWriter out = new PrintWriter(bw);
-		        out.println(javascript);	
+		        out.println(javascript);
+		        out.flush();	
+		        
 			} else {
 				throw new CustomError("Invalid File Type");
 			}
