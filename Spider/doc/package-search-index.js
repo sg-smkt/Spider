@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.oop.Spider"},{"l":"com.oop.Spider.controllers"},{"l":"com.oop.Spider.Interface"},{"l":"com.oop.Spider.objects"},{"l":"com.oop.Spider.services"},{"l":"com.oop.Spider.unittesting"},{"l":"errorhandling"}]
