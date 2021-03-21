@@ -21,6 +21,9 @@ import com.oop.Spider.services.StatisticsService;
 
 import tech.tablesaw.api.Table;
 
+/** Controller for Plotting and Statistics
+* @version 1.0
+*/
 @Controller 
 public class PlottingController {
 	

@@ -1,5 +1,10 @@
 package com.oop.Spider.objects;
 
+/**
+ *Statistics object
+ *@version 1.0
+ */
+//Acts as a model during the HTTP GET response to display statistical information on the view page. 
 public class Statistics {
 	private double mean;
 	private double sd;

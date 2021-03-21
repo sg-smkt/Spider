@@ -4,7 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 
-//main controller
+/** Main Controller that handles all HTTP request/response
+* @version 1.0
+*/
 @SpringBootApplication
 public class SpiderApplication {
 

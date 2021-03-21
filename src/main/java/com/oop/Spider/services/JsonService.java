@@ -15,6 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.oop.Spider.errorhanding.CustomError;
 
+/** Provide Json Operation and I/O Operation 
+ * @author Tsui Sau Chi, Seng Sam Kiat
+ * @version 1.0
+ */
 @Service
 public class JsonService {
 	
@@ -40,7 +44,7 @@ public class JsonService {
 	/**
 	 * <p> This method write data to the file specified </p>
 	 * @param filename - The filename to write the data to
-	 * @param data - The data containing infomation to be written to the specified file
+	 * @param data - The data containing information to be written to the specified file
 	 * @throws CustomError Thrown if filename is empty
 	 * @since 1.0
 	 */

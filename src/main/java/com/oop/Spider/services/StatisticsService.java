@@ -8,17 +8,20 @@ import com.oop.Spider.objects.Statistics;
 import tech.tablesaw.api.DoubleColumn;
 import tech.tablesaw.api.Table;
 
+/** Provide Statistical calculation on the spread of the data
+ * @author Tsui Sau Chi
+ * @version 1.0
+ */
 @Service
 public class StatisticsService {
+	
 	private Statistics stats;
-	
 
-	
 	/**
 	 * <p> This methods normalize the sentimental analysis score by multiplying each 
 	 * sentimental classification by its coefficient. Normalization is required to obtain an  
 	 * accurate result when processing the score through the statistical methods </p>
-	 * <p> Sentimental Coefficent </p>
+	 * <p> Sentimental Coefficient </p>
 	 * <ul>
 	 * <li>Very Negative: -10</li>
 	 * <li>Negative: -5</li>
@@ -40,7 +43,7 @@ public class StatisticsService {
 	
 	/**
 	 * <p> This method input the normalized sentimental score array and output the mean score value </p>
-	 * @param normalizedScore - an double array conatining the sentimental scores 
+	 * @param normalizedScore - an double array containing the sentimental scores 
 	 * @return The mean score value
 	 * @since 1.0
 	 */
@@ -52,7 +55,7 @@ public class StatisticsService {
 	
 	/**
 	 * <p> This method input the normalized sentimental score array and output the standard deviation value </p>
-	 * @param normalizedScore - an double array conatining the sentimental scores  
+	 * @param normalizedScore - an double array containing the sentimental scores  
 	 * @return The standard deviation score value
 	 * @since 1.0
 	 */
@@ -63,7 +66,7 @@ public class StatisticsService {
 	
 	/**
 	 * <p> This method input the normalized sentimental score array and output the variance value </p>
-	 * @param normalizedScore - an double array conatining the sentimental scores  
+	 * @param normalizedScore - an double array containing the sentimental scores  
 	 * @return The standard deviation score value
 	 * @since 1.0
 	 */
@@ -98,7 +101,7 @@ public class StatisticsService {
 	
 	/**
 	 * <p> The method return and prints the sentimental summary of the sentimenalScore provided </p>
-	 * @param sentimentalScore - an double array conatining the sentimental scores 
+	 * @param sentimentalScore - an double array containing the sentimental scores 
 	 * @return the a statistics object containing the summary statistics information
 	 * @since 1.0
 	 */

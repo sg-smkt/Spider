@@ -19,6 +19,10 @@ import tech.tablesaw.plotly.Plot;
 import tech.tablesaw.plotly.api.HorizontalBarPlot;
 import tech.tablesaw.plotly.api.PiePlot;
 
+/** Provide plotting using TableSaw visualization library 
+ * @author Tsui Sau Chi
+ * @version 1.0
+ */
 @Service
 public class PlottingService {
 	

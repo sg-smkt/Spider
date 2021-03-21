@@ -10,6 +10,10 @@ import com.oop.Spider.objects.Searchable;
 
 import twitter4j.TwitterException;
 
+/** Driver class for Twitter API 
+ * @author Sim Poh Kang Sebastian 
+ * @version 1.0
+ */
 @Service
 public class TwitterService{
 	
@@ -19,7 +23,7 @@ public class TwitterService{
 	private static final String accessTokenSecret = "cMxMh0k0oYrIG6odxFAID0V54niGe2bzKU1HMIXaUFsXC";
 	
 	/**
-	 * <p>This method encapsulates the search item to pass passed into model and calls the initalization method</p>
+	 * <p>This method encapsulates the search item to pass passed into model and calls the initialization method</p>
 	 * @param search - item to be searched 
 	 * @param model - encapsulates search result to be passed between view page
 	 * @see <a href="https://www.tutorialspoint.com/spring/spring_web_mvc_framework.htm">Spring Boot MVC concept</a>
@@ -31,7 +35,7 @@ public class TwitterService{
 	}
 	
 	/**
-	 * <p>This method initalize twitter api and crawl for the specified result</p>
+	 * <p>This method initialize twitter API and crawl for the specified result</p>
 	 * @param search - item to be searched
 	 * @throws IOException - Thrown if an error occurs during I/O operation
 	 * @throws TwitterException - An exception class that will be thrown when TwitterAPI calls are failed.

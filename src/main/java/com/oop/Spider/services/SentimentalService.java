@@ -20,6 +20,10 @@ import org.springframework.stereotype.Service;
 
 import com.oop.Spider.errorhanding.CustomError;
 
+/** Contains method to parse data into CoreNLP sentimental analysis
+ * @author Tsui Sau Chi
+ * @version 1.0
+ */
 @Service
 public class SentimentalService {
 	private StanfordCoreNLP pipeline;
@@ -92,7 +96,7 @@ public class SentimentalService {
 		
 		if (sentences.size() > 0) {
 			// Parse each sentence into the sentimental analysis library for classification
-		    // Each sentence is encaspulated within a document required before sentimental analsysis is conducted
+		    // Each sentence is encapsulated within a document required before sentimental analysis is conducted
 			for (int i = 0; i < sentences.size(); i++) {
 				Annotation doc = new Annotation(sentences.get(i));
 				pipeline.annotate(doc);

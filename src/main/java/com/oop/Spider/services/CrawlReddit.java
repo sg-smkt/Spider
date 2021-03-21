@@ -97,7 +97,7 @@ public class CrawlReddit extends CrawlerInterface {
 		oauthCreds = Credentials.script(username, password, clientId, clientSecret);
 		userAgent = new UserAgent("redditScrapper-inator", "github.com/sg-smkt/Spider", "1.1.0", "/u/" + "username");
 		
-		client = OAuthHelper.automatic(new OkHttpNetworkAdapter(userAgent), oauthCreds);
+		SetClient(OAuthHelper.automatic(new OkHttpNetworkAdapter(userAgent), oauthCreds));
 	}
 	
 	/**
@@ -129,9 +129,14 @@ public class CrawlReddit extends CrawlerInterface {
 	 */
 	public void SearchSubreddits(String term, int size) throws CustomError, IOException
 	{
-		// Runs a check for special characters.
+		// Runs a check for invalid characters.
 		term = CheckSpecials(term);
 		
+		/* Paginator Options:
+		 * limit - how many posts to search through.
+		 * sorting - sort posts by type using SubredditSearchSort enum (RELEVANCE and ACTIVITIES).
+		 * timePeriod - sort subreddit posts by time period using TimePeriod enum (ALL, DAY, HOUR, MONTH, WEEK, YEAR).*/
+		// Default values are used when options are not specified.
 		SubredditSearchPaginator paginator = client.searchSubreddits()
 				.query(term)
 				.limit(size)
@@ -150,7 +155,6 @@ public class CrawlReddit extends CrawlerInterface {
 		json.put("Subreddits", jarray);
 		
 		JsonService newjson = new JsonService();
-		System.out.println(newjson);
 		newjson.writeToFile(RedditSubRedditJson, json);
 	}
 	
@@ -162,7 +166,7 @@ public class CrawlReddit extends CrawlerInterface {
 	 * @param name The name to be searched
 	 * @throws CustomError Thrown if the name in not within 3 - 20 characters or conatins special characters
 	 */
-	public void CheckSubredditName(String name) throws CustomError
+	private void CheckSubredditName(String name) throws CustomError
 	{
 		// Replace all non alphabetical, numbers and underscore with space.
 		name = name.replaceAll("[^a-zA-Z0-9_]", " ");
@@ -177,7 +181,7 @@ public class CrawlReddit extends CrawlerInterface {
 			throw new CustomError("Subreddit name cannot contain spaces and special characters except _ are not allowed");
 		}
 		
-		subredditName = name;
+		SetSubreddit(name);
 	}
 	
 	/**
@@ -188,15 +192,22 @@ public class CrawlReddit extends CrawlerInterface {
 	 */
 	public void SearchTitle(String term) throws CustomError, IOException
 	{
+		// Runs a check for invalid characters.
 		term = CheckSpecials(term);
 		
+		/* Paginator Options:
+		 * limit - how many posts to search through.
+		 * sorting - sort posts by type using SearchSort enum (HOT, NEW, TOP, RELEVENCE and COMMENTS).
+		 * timePeriod - sort subreddit posts by time period using TimePeriod enum (ALL, DAY, HOUR, MONTH, WEEK, YEAR).*/
+		// Default values are used when options are not specified.
 		SearchPaginator paginator = client.search()
-				.sorting(SearchSort.HOT)
 				.query(term)
+				.sorting(SearchSort.HOT)
 				.timePeriod(TimePeriod.ALL)
 				.limit(5)
 				.build();
-		submissions = paginator.next();
+		
+		SetSubmissions(paginator.next());
 		
 		JSONObject json = new JSONObject();
 		json.put("Subreddit Term", term);
@@ -223,12 +234,11 @@ public class CrawlReddit extends CrawlerInterface {
 	public void Crawl(String subredditName) throws CustomError, IOException
 	{
 		CheckSubredditName(subredditName);
-		/* Additional options:
+		/* Paginator Options:
 		 * limit - how many subreddit posts to search through.
 		 * sorting - sort subreddit posts by type using SubredditSort enum (HOT, NEW, TOP, BEST, CONSTROVERSIAL and RISING).
 		 * timePeriod - sort subreddit posts by time period using TimePeriod enum (ALL, DAY, HOUR, MONTH, WEEK, YEAR).*/
 		// Default values are used when options are not specified.
-		
 		DefaultPaginator<Submission> paginator = client.subreddit(subredditName)
 				.posts()
 				.sorting(SubredditSort.HOT)
@@ -236,7 +246,7 @@ public class CrawlReddit extends CrawlerInterface {
 				.build();
 		 
 		// Gets the next page, influenced by limit.
-		List<Submission> submissions = paginator.next();
+		SetSubmissions(paginator.next());
 		
 		if(submissions.size() != 0)
 		{
@@ -256,7 +266,7 @@ public class CrawlReddit extends CrawlerInterface {
 		 * @param submissions The Array List to be formatted into a JSON Object
 		 * @throws IOException If there's error during input or output
 		 */
-		private void ConvertToJson(List<Submission> submissions) throws CustomError, IOException
+		public void ConvertToJson(List<Submission> submissions) throws CustomError, IOException
 		{
 			// Create a Json object that holds name and array of submissions.
 			JSONObject json = new JSONObject();

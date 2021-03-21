@@ -15,6 +15,9 @@ import com.oop.Spider.services.TwitterService;
 
 import twitter4j.TwitterException;
 
+/** Controller for Twitter
+* @version 1.0
+*/
 @Controller
 public class TwitterController extends SearchInterface{
 	

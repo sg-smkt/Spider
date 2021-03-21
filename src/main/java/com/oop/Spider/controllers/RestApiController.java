@@ -16,7 +16,10 @@ import com.oop.Spider.services.TwitterService;
 
 import twitter4j.TwitterException;
 
-//Using Rest Controller to automatically converts data into json format in the view page
+/** Handles all REST API request/response 
+ * @author Mohamed Taufik Bin Mohamed Tajudeen
+ * @version 1.0
+ */
 @RestController
 public class RestApiController {
 	

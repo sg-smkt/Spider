@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+/** Driver class for Reddit API 
+ * @author Seng Sam Kiat
+ * @version 1.0
+ */
 @Service
 public class RedditService {
 	private static final String username = "JamesTsui";

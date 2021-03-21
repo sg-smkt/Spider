@@ -18,6 +18,10 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.TwitterException;
 
+/** Creates a twitter "client" to crawl data from Twitter 
+ * @author Sim Poh Kang Sebastian
+ * @version 1.0
+ */
 @Service
 public class CrawlTwitter extends CrawlerInterface{
 	
