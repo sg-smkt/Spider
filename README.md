@@ -19,7 +19,6 @@ Hence to better understand and deconstruct this area of technology, we decided t
 
 
 ### Reddit API 
-Praw: Python API wrapper for Reddit; [Link](https://praw.readthedocs.io/en/latest/)<br />
 Jraw: Java API wrapper for Reddit; [Link](https://javadoc.jitpack.io/com/github/mattbdean/JRAW/v1.1.0/javadoc/index.html)<br />
 #### Creating a Reddit Application
 Steps:
@@ -32,7 +31,7 @@ Client Id and Secret can be found here after the creation of the app<br />
 ![image](https://user-images.githubusercontent.com/74295056/109486194-81cc7580-7abd-11eb-9966-bb99717531d2.png)
 
 ### Twitter API
-(Insert here)
+Twitter4J - http://twitter4j.org/en/index.html
 
 ### Sentiment Analysis 
 CoreNLP: Natural Language Processing; [Link](https://stanfordnlp.github.io/CoreNLP/index.html)
