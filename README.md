@@ -1,13 +1,22 @@
 # Spider
 
-## Sample Code 
-Sample is at Branches -> Prototype
+## Note to Run Project 
+For the source code, we added external jar for CoreNLP library on top of maven. Hence 
+for the project to run, there is a need to download the CoreNLP library and configure 
+the build path within eclipse. 
+
+The jar can be download here: https://stanfordnlp.github.io/CoreNLP/
+2 folder needs to be downloaded; the CoreNLP 4.2.0 and English model jar 
 
 ## General Project Idea 
-Use API to request event related data from Twitter & Reddit for possible sentimental analysis
+The problems that come with organising events are that the participants' opinions of the events are not easily known from the organisers' perspective. Obtaining feedback directly from participants is a great way to get a feel of the overall opinions. However, the sample size feedback may not reflect the population data, and without a clear data matrix, there is no clear record of how effective each event is.
 
-## Libraries
-We could enter the libraries we are using or researching here
+Creating an online feedback form is one such solution. However, it may only work effectively for small scale events when the participants are easily managed. For large scale events, there is no incentive for participants to spend time to do this feedback. The overall expenses that come with providing an incentive are also high. Hence there is a need for another tool to solve this potential problem for event organisers, especially when it comes to large scale events.
+
+One such solution in the market is the use of sentiment analysis. We can make use of this technology to crawl event-based data on social media. With the assistance of sentiment classification, there is also no need to process the data individually. The general opinion is summarized and easily understandable at first glance.
+
+Hence to better understand and deconstruct this area of technology, we decided to pursue sentimental analysis as an additional feature for our project, on top of crawling data from social media.
+
 
 ### Reddit API 
 Praw: Python API wrapper for Reddit; [Link](https://praw.readthedocs.io/en/latest/)<br />
