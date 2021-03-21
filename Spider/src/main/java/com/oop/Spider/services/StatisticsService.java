@@ -12,6 +12,8 @@ import tech.tablesaw.api.Table;
 public class StatisticsService {
 	private Statistics stats;
 	
+
+	
 	/**
 	 * <p> This methods normalize the sentimental analysis score by multiplying each </br>
 	 * sentimental classification by its coefficient. Normalization is required to obtain an  </br>
@@ -46,6 +48,7 @@ public class StatisticsService {
 		DoubleColumn arr = DoubleColumn.create("Sentimental Data", normalizedScore);
 		return arr.mean();
 	}
+
 	
 	/**
 	 * <p> This method input the normalized sentimental score array and output the standard deviation value </p>
