@@ -83,7 +83,7 @@ public class StatisticsService {
 		} else if (sentimentalMean >= -1.5 && sentimentalMean < -0.5) {
 			return "Negative";
 		} else if (sentimentalMean >= -0.5 && sentimentalMean < 0.5) {
-			return "Neurtal";
+			return "Neutral";
 		} else if (sentimentalMean >= 0.5 && sentimentalMean < 1.5) {
 			return "Positive";
 		} else if (sentimentalMean >= 1.5 && sentimentalMean < 2) {
