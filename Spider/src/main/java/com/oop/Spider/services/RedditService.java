@@ -2,7 +2,6 @@ package com.oop.Spider.services;
 
 import java.util.Scanner;
 
-import com.oop.Spider.services.GetReddit;
 import com.oop.Spider.objects.Searchable;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +16,28 @@ public class RedditService {
 	private static final String clientSecret = "KHJZ9NQbxNILzE4bsa5425W9tUxL9Q";
 	
 	@Autowired
-	private static GetReddit getReddit = new GetReddit();
+	private static CrawlReddit getReddit = new CrawlReddit();
 	
-	public void searchSubreddit(Searchable search, Model model) {
-		initialize(search.getSearch());
+	public void searchReddit(Searchable search, Model model) {
+		model.addAttribute("reddit", search);
+		initialize();
+		Query(search.getSearch());
 	}
 	
-	private void initialize(String search) {
-		getReddit = new GetReddit(username, password, clientId, clientSecret);
-		SearchTitle(search);
-		SearchTitle(search);
-		Query(search);
+	public void searchSubReddit(Searchable search, Model model) {
+		model.addAttribute("reddit", search);
+		initialize();
+		Search(search.getSearch());
+	}
+	
+	public void searchTitle(Searchable search, Model model) {
+		model.addAttribute("reddit", search);
+		initialize();
+		SearchTitle(search.getSearch());
+	}
+	
+	private void initialize() {
+		getReddit = new CrawlReddit(username, password, clientId, clientSecret);
 	}
 	
 	private static void Search(String search)
@@ -65,9 +75,4 @@ public class RedditService {
 			System.out.println(e);
 		}
 	}
-	
-	/*
-	 * Search Title 
-	 * Search SubReddit Names
-	 */
 }

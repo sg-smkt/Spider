@@ -31,7 +31,7 @@
               <li class="nav-item">
                 <a class="nav-link active" href="#">
                   <span data-feather="home"></span>
-                  Dashboard <span class="sr-only">(current)</span>
+                  Dashboard
                 </a>
               </li>
               <li class="nav-item">
@@ -49,7 +49,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="./plotting">
                   <span data-feather="users"></span>
-                  Get Plot & Stats
+                  Get Plot & Statistics
                 </a>
               </li>
             </ul>
@@ -61,6 +61,7 @@
             <h1 class="h2">Twitter Search</h1>
 				Spider Search~
           </div>
+          <b>Crawls the specified Hashtag to get tweets information.</b>
           <form action="#" th:action="@{/twittersearch}" th:object="${search}" method="post">
 	       	<div class="input-group mb-3">
 			  <div class="input-group-prepend">
@@ -70,7 +71,7 @@
 			</div>
 			<div>
 				<button type="submit" value="Submit" class="btn btn-success btn-lg btn-block">Submit</button>
-			 	<button type="reset" value="Reset"class="btn btn btn-dark btn-lg btn-block">Reset</button>
+			 	<button type="reset" value="Reset"class="btn btn btn-dark btn-lg btn-block">Clear</button>
 			 </div>
 			</form>
         </main>

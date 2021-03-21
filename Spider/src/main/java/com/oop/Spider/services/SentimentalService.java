@@ -21,13 +21,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SentimentalService {
-	StanfordCoreNLP pipeline;
+	private StanfordCoreNLP pipeline;
 	
 	@Autowired
 	JsonService json = new JsonService();
 	 
 	/**
-	 * <p> Initialization of CoreNLP Sentiment Library. Core NLP architecture is based on pipeline  <br/>
+	 * <p> Initialization of CoreNLP Sentiment Library. Core NLP architecture is based on pipelines  <br/>
 	 * 	To use Sentimental Analysis for CoreNLP, the specific pipeline needs to be specified. <br/>
 	 *  The initialization follows CoreNLP requirement pipeline tag for sentimental analysis <br/>
 	 *  The tags are: tokenize, ssplit, pos, parse</p>

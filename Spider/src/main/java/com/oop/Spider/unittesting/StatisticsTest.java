@@ -1,9 +1,8 @@
-package com.oop.unittesting;
+package com.oop.Spider.unittesting;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.oop.Spider.services.StatisticsService;
@@ -41,8 +40,8 @@ class StatisticsTest {
 	
 	@Test
 	public void testgetMode() throws CustomError {
-		assertThrows(CustomError.class,() -> {statisticsTest.getModeSentimenet(statisticsTest.getMean(sentimentalArr));});
-		assertEquals("Very Positive", statisticsTest.getModeSentimenet(statisticsTest.getMean(sentimentalArr2)));
+		assertThrows(CustomError.class,() -> {statisticsTest.getModeSentimental(statisticsTest.getMean(sentimentalArr));});
+		assertEquals("Very Positive", statisticsTest.getModeSentimental(statisticsTest.getMean(sentimentalArr2)));
 	}
 	
 	@Test

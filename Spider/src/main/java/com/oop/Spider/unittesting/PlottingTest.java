@@ -1,4 +1,4 @@
-package com.oop.unittesting;
+package com.oop.Spider.unittesting;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,7 +43,7 @@ class PlottingTest {
 	}
 	
 	@Test
-	public void testFileExtension() {
+	public void testBar() {
 		assertThrows(CustomError.class, () -> {plottingtest.displayPieChart(table, filename2, var);});
 		assertThrows(CustomError.class, () -> {plottingtest.displayBarChart(table, filename2, var);});
 	}

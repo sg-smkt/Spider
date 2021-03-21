@@ -13,9 +13,9 @@ public class StatisticsService {
 	private Statistics stats;
 	
 	/**
-	 * <p> This methods normalize the sentimental analsysis score by mutiply each </br>
-	 * sentimental classification by its coefficent. Normlaization is required to obtain an </br>
-	 * accruate result when processing the score through the statistical mathods </p>
+	 * <p> This methods normalize the sentimental analysis score by multiplying each </br>
+	 * sentimental classification by its coefficient. Normalization is required to obtain an  </br>
+	 * accurate result when processing the score through the statistical methods </p>
 	 * <p> Sentimental Coefficent </p>
 	 * <ul>
 	 * <li>Very Negative: -10</li>
@@ -70,14 +70,14 @@ public class StatisticsService {
 	}
 	
 	/**
-	 * <p> This method inputs the sentimental mean value and outputs the mode in the form of sentimental  <br>
-	 * type categoization </p> 
+	 * <p> This method inputs the sentimental mean value and outputs the mode in the form of sentimental<br>
+	 * type categorization </p> 
 	 * @param sentimentalMean See getMean(double[] normalizedScore) method
 	 * @return The sentimental mode type
 	 * @throws CustomError If the mean value is not within the range of -2 < x < 2, an error occur
 	 * @since 1.0
 	 */
-	public String getModeSentimenet(double sentimentalMean) throws CustomError{
+	public String getModeSentimental(double sentimentalMean) throws CustomError{
 		if (sentimentalMean >= -2 && sentimentalMean < -1.5) {
 			return "Very Negative";
 		} else if (sentimentalMean >= -1.5 && sentimentalMean < -0.5) {
@@ -109,9 +109,9 @@ public class StatisticsService {
 		System.out.println("Mean (Expected Value: " + newStats.getMean(normalizedScore));
 		System.out.println("Standard Deviation: " + newStats.getSD(normalizedScore));
 		System.out.println("Variance :" + newStats.getVar(normalizedScore));	
-		System.out.println("Sentimental Type (Mode): " + newStats.getModeSentimenet(newStats.getMean(normalizedScore)));
+		System.out.println("Sentimental Type (Mode): " + newStats.getModeSentimental(newStats.getMean(normalizedScore)));
 
-		stats = new Statistics(newStats.getMean(normalizedScore), newStats.getSD(normalizedScore), newStats.getVar(normalizedScore), newStats.getModeSentimenet(newStats.getMean(normalizedScore)));
+		stats = new Statistics(newStats.getMean(normalizedScore), newStats.getSD(normalizedScore), newStats.getVar(normalizedScore), newStats.getModeSentimental(newStats.getMean(normalizedScore)));
 		return stats;
 	}
 }

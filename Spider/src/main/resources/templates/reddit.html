@@ -31,7 +31,7 @@
               <li class="nav-item">
                 <a class="nav-link active" href="#">
                   <span data-feather="home"></span>
-                  Dashboard <span class="sr-only">(current)</span>
+                  Dashboard
                 </a>
               </li>
               <li class="nav-item">
@@ -49,7 +49,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="./plotting">
                   <span data-feather="users"></span>
-                  Get Plot & Stats
+                  Get Plot & Statistics
                 </a>
               </li>
             </ul>
@@ -61,6 +61,8 @@
             <h1 class="h2">Reddit Search</h1>
 				Spider Search~
           </div>
+          
+          <b>Crawls the specified subreddit to get comments/post information.</b>
           <form action="#" th:action="@{/redditsearch}" th:object="${search}" method="post">
 	       	<div class="input-group mb-3">
 			  <div class="input-group-prepend">
@@ -70,7 +72,39 @@
 			</div>
 			<div>
 				<button type="submit" value="Submit" class="btn btn-success btn-lg btn-block">Submit</button>
-			 	<button type="reset" value="Reset"class="btn btn btn-dark btn-lg btn-block">Reset</button>
+			 	<button type="reset" value="Reset"class="btn btn btn-dark btn-lg btn-block">Clear</button>
+			 </div>
+			</form>
+			
+			<br/><br/><br/>
+			
+			<b>Searches for and lists Subreddits that contain the term specified.</b>
+			<form action="#" th:action="@{/subredditsearch}" th:object="${search}" method="post">
+	       	<div class="input-group mb-3">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" id="inputGroup-sizing-default">SubReddit Search</span>
+			  </div>
+			  <input type="text" th:field="*{search}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+			</div>
+			<div>
+				<button type="submit" value="Submit" class="btn btn-success btn-lg btn-block">Submit</button>
+			 	<button type="reset" value="Reset"class="btn btn btn-dark btn-lg btn-block">Clear</button>
+			 </div>
+			</form>
+			
+			<br/><br/><br/>
+			
+			<b>Searches for posts that contain the specified term in the title in all of Reddit.</b>
+			<form action="#" th:action="@{/titlesearch}" th:object="${search}" method="post">
+	       	<div class="input-group mb-3">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text" id="inputGroup-sizing-default">Reddit Title Search</span>
+			  </div>
+			  <input type="text" th:field="*{search}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+			</div>
+			<div>
+				<button type="submit" value="Submit" class="btn btn-success btn-lg btn-block">Submit</button>
+			 	<button type="reset" value="Reset"class="btn btn btn-dark btn-lg btn-block">Clear</button>
 			 </div>
 			</form>
         </main>

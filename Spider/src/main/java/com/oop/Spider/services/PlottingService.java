@@ -24,7 +24,7 @@ public class PlottingService {
 	/**
 	 * <p>This Method takes in a list of sentimental categorization and outputs a Table Object </br>
 	 * There are 5 types of sentimental categorization which includes: "Very Negative", "Negative", "Neutral", "Positive" and "Very Positive"</p>
-	 * The method also counts the number of invalid string in the list and returns an error messsage with the information</p>
+	 * The method also counts the number of invalid string in the list and returns an error message with the information</p>
 	 * @param data ArrayList containing Sentimental categorization
 	 * @return Table object consisting two column; Column 1 list the sentimental categorization; Column 2 list of number 
 	 * of counts associated with the sentimental categorization
@@ -94,6 +94,7 @@ public class PlottingService {
 	 * @throws IOException Error druing write operation 
 	 * @throws CustomError Either Table is Empty or the file type is not html
 	 * @see <a href="">https://javadoc.io/doc/tech.tablesaw/tablesaw-core/0.25.2/tech/tablesaw/api/Table.html</a>
+	 * @since 1.0
 	 */
 	public void displayBarChart(Table table, String filename, String javascriptVar) throws CustomError, IOException{
 		if (table != null) {
@@ -123,6 +124,7 @@ public class PlottingService {
 	 * @throws IOException Error druing write operation 
 	 * @throws CustomError Either Table is Empty or the file type is not html
 	 * @see <a href="">https://javadoc.io/doc/tech.tablesaw/tablesaw-core/0.25.2/tech/tablesaw/api/Table.html</a>
+	 * @since 1.0
 	 */
 	public void displayPieChart(Table table, String filename, String javascriptVar) throws CustomError, IOException{
 		if (table != null) {
@@ -145,8 +147,8 @@ public class PlottingService {
 	
 	// Reference: https://stackoverflow.com/questions/25298691/how-to-check-the-file-type-in-java/25298748
 	// Method to read File Extension
-	private static String getFileExtension(String fullName) {
-	    String fileName = new File(fullName).getName();
+	private static String getFileExtension(String filename) {
+	    String fileName = new File(filename).getName();
 	    int dotIndex = fileName.lastIndexOf('.');
 	    return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
 	}

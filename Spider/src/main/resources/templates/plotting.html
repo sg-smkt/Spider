@@ -33,7 +33,7 @@
               <li class="nav-item">
                 <a class="nav-link active" href="#">
                   <span data-feather="home"></span>
-                  Dashboard <span class="sr-only">(current)</span>
+                  Dashboard
                 </a>
               </li>
               <li class="nav-item">
@@ -51,7 +51,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="./plotting">
                   <span data-feather="users"></span>
-                  Get Plot & Stats
+                  Get Plot & Statistics
                 </a>
               </li>
             </ul>
@@ -64,69 +64,36 @@
 				Spider Plotting and Stats~
           </div>
           
-          <div class="container">
-          	<div class="row justify-content-center">
-		        <div class="col-md-6">  
-		        	<h1>Reddit</h1>
-		        	<form action="#" th:action="@{/plottingreddit}" method="post">
-				    	<button type="submit" value="Get Plot" class="btn btn-danger btn-lg btn-block">Get Reddit Plot</button>
-			  		</form>
-			  		<br/>
-			  		<form action="#" th:action="@{/statsreddit}" method="post">
-				    	<button type="submit" value="Get Stats" class="btn btn-danger btn-lg btn-block">Get Reddit Stats</button>
-			  		</form>
-		        </div>
-		        <div class="col-md-6">
-		        	<h1>Twitter</h1>
-		        	<form action="#" th:action="@{/plottingtwitter}" method="post">
-				    	<button type="submit" value="Get Plot" class="btn btn-info btn-lg btn-block">Get Twitter Plot</button>
-			 		 </form>
-			 		 <br/>
-			  		<form action="#" th:action="@{/statstwitter}" method="post">
-				    	<button type="submit" value="Get Stats" class="btn btn-info btn-lg btn-block">Get Twitter Stats</button>
-			  		</form>
-		        </div>
-		    </div>
-          </div>
           
-          <br/><br/><br/>
-          
+          <h3><b>Statistical Summary</b></h3>
+           <form action="#" th:action="@{/statsreddit}" method="post">
+				<button type="submit" value="Get Stats" class="btn btn-danger btn-lg btn-block">Get Reddit Stats</button>
+			 </form>
+  			<form action="#" th:action="@{/statstwitter}" method="post">
+				<button type="submit" value="Get Stats" class="btn btn-info btn-lg btn-block">Get Twitter Stats</button>
+			</form>
+			<br/>
+      
           <div class="container border-top border-bottom">
-			    <div class="row justify-content-center">
-			        <div class="col-md-6">  
+			    <div class="row">
+			        <div class="col-md-12">  
 			        	<div th:if="${statistics}">
-							<h2>Result</h2>
 							<ul class="list-group list-group-flush">
 							  <li class="list-group-item">
-							  	<p th:text="'Mean: ' + ${statistics.mean}" />
+							  	<span><b>Mean: </b></span><span th:text="${statistics.mean}"></span>
+							  	<br/>
 							  </li>
 							  <li class="list-group-item">
-							  	<p th:text="'Standard Deviation: ' + ${statistics.sd}" />
+							  	<span><b>Standard Deviation: </b></span><span th:text="${statistics.sd}"></span>
+							  	<br/>
 							  </li>
 							  <li class="list-group-item">
-							  	<p th:text="'Variance: ' + ${statistics.var}" />
+							  	<span><b>Variance: </b></span><span th:text="${statistics.var}"></span>
+							  	<br/>
 							  </li>
 							  <li class="list-group-item">
-							  	<p th:text="'Mode: ' + ${statistics.mode}" />
-							  </li>
-							</ul>
-			    		</div>
-			        </div>
-			        <div class="col-md-6">
-			        	<div th:if="${statistics}">
-							<h2>Result</h2>
-							<ul class="list-group list-group-flush">
-							  <li class="list-group-item">
-							  	<p th:text="'Mean: ' + ${statistics.mean}" />
-							  </li>
-							  <li class="list-group-item">
-							  	<p th:text="'Standard Deviation: ' + ${statistics.sd}" />
-							  </li>
-							  <li class="list-group-item">
-							  	<p th:text="'Variance: ' + ${statistics.var}" />
-							  </li>
-							  <li class="list-group-item">
-							  	<p th:text="'Mode: ' + ${statistics.mode}" />
+							  	<span><b>Mode: </b></span><span th:text="'Mode: ' + ${statistics.mode}"></span>
+							  	<br/>
 							  </li>
 							</ul>
 			    		</div>
@@ -134,6 +101,16 @@
 			    </div>
 			</div>
 			
+			<br/><br/><br/>
+			<h3><b>Plotting Summary</b></h3>
+			<form action="#" th:action="@{/plottingreddit}" method="post">
+	    		<button type="submit" value="Get Plot" class="btn btn-danger btn-lg btn-block">Get Reddit Plot</button>
+  			</form>
+			<form action="#" th:action="@{/plottingtwitter}" method="post">
+				<button type="submit" value="Get Plot" class="btn btn-info btn-lg btn-block">Get Twitter Plot</button>
+			</form>
+
+			<br/><br/><br/>
 			<div class="container border-top border-bottom">
 			    <div class="row justify-content-center">
 			        <div class="col-md-6">  

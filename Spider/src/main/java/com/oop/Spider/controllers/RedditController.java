@@ -24,7 +24,19 @@ public class RedditController extends SearchInterface{
 	
 	@PostMapping("/redditsearch")
 	public String search(Searchable search, Model model) {
-		redditService.searchSubreddit(search, model);
+		redditService.searchReddit(search, model);
+		return "result";
+	}
+	
+	@PostMapping("/subredditsearch")
+	public String searchsubreddit(Searchable search, Model model) {
+		redditService.searchSubReddit(search, model);
+		return "result";
+	}
+	
+	@PostMapping("/titlesearch")
+	public String searchtitle(Searchable search, Model model) {
+		redditService.searchTitle(search, model);
 		return "result";
 	}
 }

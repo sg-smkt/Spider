@@ -30,23 +30,22 @@ import org.json.simple.JSONArray;
 import java.io.IOException;
 
 @Service
-public class GetReddit extends CrawlerInterface {
+public class CrawlReddit extends CrawlerInterface {
 	private Credentials oauthCreds;
 	private UserAgent userAgent;
 	private RedditClient client;
 	
 	private String subredditName;
-	//private List<Submission> submissions;
 	
 	private static final String RedditJson = "./data.json";
 	private static final String RedditSubRedditJson = "./rsubreddit.json";
 	private static final String RedditTitleJson = "./rtitle.json";
 	
-	public GetReddit()
+	public CrawlReddit()
 	{
 	}
 	
-	public GetReddit(String username, String password, String clientId, String clientSecret)
+	public CrawlReddit(String username, String password, String clientId, String clientSecret)
 	{
 		oauthCreds = Credentials.script(username, password, clientId, clientSecret);
 		userAgent = new UserAgent("redditScrapper-inator", "github.com/sg-smkt/Spider", "1.1.0", "/u/" + "username");
@@ -91,6 +90,7 @@ public class GetReddit extends CrawlerInterface {
 		json.put("Subreddits", jarray);
 		
 		JsonService newjson = new JsonService();
+		System.out.println(newjson);
 		newjson.writeToFile(RedditSubRedditJson, json);
 	}
 	

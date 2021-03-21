@@ -19,11 +19,10 @@ import twitter4j.conf.ConfigurationBuilder;
 import twitter4j.TwitterException;
 
 @Service
-public class GetTwitter extends CrawlerInterface{
+public class CrawlTwitter extends CrawlerInterface{
 	
 	 private Twitter twitterr;
-     ArrayList<String> TweetsList = new ArrayList<String>();
-     QueryResult result;
+	 private QueryResult result;
      
      private static final String TweeterJson = "./data2.json";
 	
@@ -46,6 +45,7 @@ public class GetTwitter extends CrawlerInterface{
 	   	  
    		  result = twitterr.search(query);
    		  System.out.println("Count: " + result.getTweets().size());
+   		  ArrayList<String> TweetsList = new ArrayList<String>();
    		  for (Status tweet: result.getTweets()) {
    			  TweetsList.add(tweet.getText());
    		  }
@@ -54,7 +54,7 @@ public class GetTwitter extends CrawlerInterface{
    	  }  
 	  
 	  
-	  private void ConvertToJson(String searchTerm) throws IOException, CustomError
+	  public void ConvertToJson(String searchTerm) throws IOException, CustomError
 	  {
 		  JSONObject json = new JSONObject();
 		  json.put("Hashtag Name", searchTerm);
