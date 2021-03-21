@@ -32,7 +32,7 @@ public class PlottingService {
 	 * @since 1.0
 	 */
 	public Table createTableByCount(ArrayList<String> data) throws CustomError, NullPointerException{
-		String[] sentimentalType = {"Very Negative", "Negative", "Neurtal", "Positive", "Very Positive"};
+		String[] sentimentalType = {"Very Negative", "Negative", "Neutral", "Positive", "Very Positive"};
 		int[] sentimentalCounter = new int[5];
 		int invalidString = 0;
 		

@@ -29,22 +29,70 @@ import errorhandling.CustomError;
 import org.json.simple.JSONArray;
 import java.io.IOException;
 
+/** Creates a reddit "client" to crawl data from Reddit using different forms of paginator to yield different results.
+ * @author Seng Sam Kiat
+ * user sg-smkt at github.com/sg-smkt/Spider
+ * @version 1.0
+ */
 @Service
 public class CrawlReddit extends CrawlerInterface {
+	// Fields
 	private Credentials oauthCreds;
 	private UserAgent userAgent;
 	private RedditClient client;
 	
 	private String subredditName;
+	private List<Submission> submissions;
 	
 	private static final String RedditJson = "./data.json";
 	private static final String RedditSubRedditJson = "./rsubreddit.json";
 	private static final String RedditTitleJson = "./rtitle.json";
 	
+	// Properties
+	protected RedditClient GetClient()
+	{
+		return this.client;
+	}
+	
+	private void SetClient(RedditClient client)
+	{
+		this.client = client;
+	}
+	
+	protected List<Submission> GetSubmissions()
+	{
+		return this.submissions;
+	}
+	
+	private void SetSubmissions(List<Submission> submissions)
+	{
+		this.submissions = submissions;
+	}
+	
+	protected String GetSubreddit()
+	{
+		return this.subredditName;
+	}
+	
+	private void SetSubreddit(String subredditName)
+	{
+		this.subredditName = subredditName;
+	}
+	
+	// Default Constructor.
 	public CrawlReddit()
 	{
 	}
 	
+	/**
+	 * <p>Class constructor for the CrawlReddit Object, it uses the required parameters to create a “client” 
+	 * after OAuth has been verified. This “client” grants user access to Reddit through the use of a script. </p>
+	 * @param username - reddit account username.
+	 * @param password - reddit account password.
+	 * @param clientId - client id taken from reddit app.
+	 * @param clientSecret - client secret key taken from reddit app.
+	 * @since 1.0
+	 */
 	public CrawlReddit(String username, String password, String clientId, String clientSecret)
 	{
 		oauthCreds = Credentials.script(username, password, clientId, clientSecret);
@@ -53,7 +101,13 @@ public class CrawlReddit extends CrawlerInterface {
 		client = OAuthHelper.automatic(new OkHttpNetworkAdapter(userAgent), oauthCreds);
 	}
 	
-	// Runs a check for special characters.
+	/**
+	 * <p>Run a check for characters, any special character will be detected and on Exception will be thrown</p>
+	 * @param word String value to be check for special characters
+	 * @return returns the parameter value
+	 * @throws CustomError Thrown if a special character is detected
+	 * @since 1.0
+	 */
 	private String CheckSpecials(String word) throws CustomError
 	{
 		// Replaces non alphabetical, numeral and spaces with an arbitrary character: @.
@@ -66,7 +120,14 @@ public class CrawlReddit extends CrawlerInterface {
 		return word;
 	}
 	
-	// Searches for and lists Subreddits that contain the term specified.
+	/**
+	 * SearchSubreddits displays a list of subreddits that have posts that contain the search term. This is 
+	 * used to suggest to the user which subreddits that would contain information that is relevant to them
+	 * @param term The term to be searched 
+	 * @param size Set the limit for the search result
+	 * @throws IOException If there's error during input or output
+	 * @since 1.0
+	 */
 	public void SearchSubreddits(String term, int size) throws CustomError, IOException
 	{
 		// Runs a check for special characters.
@@ -95,6 +156,13 @@ public class CrawlReddit extends CrawlerInterface {
 	}
 	
 	
+	/**
+	 * <p>Searches for relevent subreddit name. The subreddit name specified by Reddit has to be 3 - 20 characters long 
+	 * and must not contain special characters and spaces. Exception handling has been set up to make sure the user 
+	 * follows the above criteria.</p>
+	 * @param name The name to be searched
+	 * @throws CustomError Thrown if the name in not within 3 - 20 characters or conatins special characters
+	 */
 	public void CheckSubredditName(String name) throws CustomError
 	{
 		// Replace all non alphabetical, numbers and underscore with space.
@@ -113,7 +181,12 @@ public class CrawlReddit extends CrawlerInterface {
 		subredditName = name;
 	}
 	
-	// Searches for posts that contain the specified term in the title in all of Reddit.
+	/**
+	 * SearchTitle displays a list of submission posts throughout the whole of Reddit that contain the search term in their title.
+	 * @param term The term to be searched
+	 * @throws IOException If there's error during input or output
+	 * @since 1.0
+	 */
 	public void SearchTitle(String term) throws CustomError, IOException
 	{
 		term = CheckSpecials(term);
@@ -124,7 +197,7 @@ public class CrawlReddit extends CrawlerInterface {
 				.timePeriod(TimePeriod.ALL)
 				.limit(5)
 				.build();
-		List<Submission> submissions = paginator.next();
+		submissions = paginator.next();
 		
 		JSONObject json = new JSONObject();
 		json.put("Subreddit Term", term);
@@ -139,7 +212,15 @@ public class CrawlReddit extends CrawlerInterface {
 		newjson.writeToFile(RedditTitleJson, json);
 	}
 	
-	// Crawls the specified subreddit to get post information.
+	/**
+	 * <p>The Crawl function takes in a subreddit name and scans the specified subreddit’s posts and stores the posts in a 
+	 * submission array. Do note that the subreddit name entered here must be the same as the actual subreddit name and is not 
+	 * case sensitive. For example, entering “redditdev” will crawl through the posts in r/redditdev but if a typographical 
+	 * error is made such as “reddiydev”, it will bring the user to a different or a non-existing subreddit. </p>
+	 * @param subredditName The term to be searched
+	 * @throws IOException If there's error during input or output
+	 * @since 1.0
+	 */
 	public void Crawl(String subredditName) throws CustomError, IOException
 	{
 		CheckSubredditName(subredditName);
@@ -168,7 +249,14 @@ public class CrawlReddit extends CrawlerInterface {
 		}
 	}
 	
-	// Formats the submission information and its comments into a JSON object.
+		/**
+		 * ConvertToJson function takes in a submission array, and formats it into a JSON Object. The JSON 
+		 * object holds the name of the subreddit, an array of submission posts, their id, title and comments. 
+		 * There is additional filtering such as Comments that are deleted by the user or removed by the moderators 
+		 * of the subreddit will be removed before being stored to the comment array. </p>
+		 * @param submissions The Array List to be formatted into a JSON Object
+		 * @throws IOException If there's error during input or output
+		 */
 		private void ConvertToJson(List<Submission> submissions) throws CustomError, IOException
 		{
 			// Create a Json object that holds name and array of submissions.

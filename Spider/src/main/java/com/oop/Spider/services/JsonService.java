@@ -19,7 +19,7 @@ import errorhandling.CustomError;
 public class JsonService {
 	
 	/**
-	 * <p> This method read the data from the specificed file and returns the json object</p>
+	 * <p> This method read the data from the specified file and returns the json object</p>
 	 * @param filename specify a value file to be read into json object
 	 * @return The json Object
 	 * @throws FileNotFoundException If the file is not found 
@@ -57,7 +57,7 @@ public class JsonService {
 	
 	
 	/**
-	 * <p> This method get the reddit comments from the file specified. </p>
+	 * <p> This method gets the reddit comments from the file specified. </p>
 	 * <p> The file specified has to contain the json with the following format </p>
 	 * {
 	 * "Subreddit Name:": String 
@@ -147,7 +147,7 @@ public class JsonService {
 	}
 	
 	/**
-	 * <p> This method get the sentimental data from the file specified. </p>
+	 * <p> This method gets the sentimental data from the file specified. </p>
 	 * <p> The file specified has to contain the json with the following format </p>
 	 *  {
 	 *   "Sentimental Type Data" : [String, String ... ]
