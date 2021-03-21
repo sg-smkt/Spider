@@ -8,8 +8,8 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.oop.Spider.Interface.CrawlerInterface;
+import com.oop.Spider.errorhanding.CustomError;
 
-import errorhandling.CustomError;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;

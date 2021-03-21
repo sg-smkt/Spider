@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.oop.Spider.errorhanding.CustomError;
 import com.oop.Spider.services.PlottingService;
 
-import errorhandling.CustomError;
 import tech.tablesaw.api.Table;
 
 class PlottingTest {

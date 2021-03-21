@@ -14,10 +14,11 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.trees.Tree;
-import errorhandling.CustomError;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.oop.Spider.errorhanding.CustomError;
 
 @Service
 public class SentimentalService {
@@ -27,9 +28,9 @@ public class SentimentalService {
 	JsonService json = new JsonService();
 	 
 	/**
-	 * <p> Initialization of CoreNLP Sentiment Library. Core NLP architecture is based on pipelines  <br/>
-	 * 	To use Sentimental Analysis for CoreNLP, the specific pipeline needs to be specified. <br/>
-	 *  The initialization follows CoreNLP requirement pipeline tag for sentimental analysis <br/>
+	 * <p> Initialization of CoreNLP Sentiment Library. Core NLP architecture is based on pipelines 
+	 * 	To use Sentimental Analysis for CoreNLP, the specific pipeline needs to be specified. 
+	 *  The initialization follows CoreNLP requirement pipeline tag for sentimental analysis 
 	 *  The tags are: tokenize, ssplit, pos, parse</p>
 	 * @see <a href="https://stanfordnlp.github.io/CoreNLP">CoreNLP Library</a>
 	 * @see <a href="https://stanfordnlp.github.io/CoreNLP/annotators.html">CoreNLP Annotations</a>
@@ -42,29 +43,34 @@ public class SentimentalService {
 	}
 	
 	/**
-	 * <p> This method takes in a list of sentences and output the sentimental classification type onto a file. </b>
+	 * <p> This method takes in a list of sentences and output the sentimental classification type onto a file. 
 	 * There are 5 types of sentimental categorization which includes: "Very Negative", "Negative", "Neutral", "Positive" and "Very Positive"</p>
-	 * @param sentences ArrayList containing sentences to be parse into CoreNLP sentimental analysis
-	 * @param filename the specified filename to write the sentimental analysis data
-	 * @throws UserDataException If sentences size is less than 1, throw "Sentence size is less then 1" message to console 
-	 * @throws NullPointerException ArrayList is not initialized 
+	 * @param sentences - ArrayList containing sentences to be parse into CoreNLP sentimental analysis
+	 * @param filename - the specified filename to write the sentimental analysis data
+	 * @throws UserDataException - If sentences size is less than 1, throw "Sentence size is less then 1" message to console 
+	 * @throws NullPointerException - ArrayList is not initialized 
 	 * @throws IOException If there's error during input or output
 	 * @since 1.0
 	 */
 	public void writeClassificationToFile(ArrayList<String> sentences, String filename) throws CustomError, NullPointerException, IOException {
 		ArrayList<String> classificationList = new ArrayList<String>();
 		if (sentences.size() > 0) {
+			// Parse each sentence into the sentimental analysis library for classification
+			// Each sentence is encaspulated within a document required before sentimental analsysis is conducted
 			for (int i = 0; i < sentences.size(); i++) {
 				Annotation doc = new Annotation(sentences.get(i));
 				pipeline.annotate(doc);
+				// Get classification
 				for (int j = 0; j < doc.get(SentencesAnnotation.class).size(); j++) {
 					String type = doc.get(SentencesAnnotation.class).get(j).get(SentimentCoreAnnotations.SentimentClass.class);
 					classificationList.add(type);
 				}
 			}
+			// Stores result into a HashMap 
 			HashMap<String, ArrayList<String>> hashData = new HashMap<String, ArrayList<String>>();
 			hashData.put("Sentimental Type Data", classificationList);
 			JSONObject obj = new JSONObject(hashData);
+			// Write result to file
 			json.writeToFile(filename, obj);	
 		} else {
 			throw new CustomError("Sentence size is less then 1. No sentence to parse into sentimental analysis");
@@ -72,11 +78,11 @@ public class SentimentalService {
 	}
 	
 	/**
-	 * <p> This methods takes in a list of sentences, parse the sentences into the sentimental analysis <br/>
+	 * <p> This methods takes in a list of sentences, parse the sentences into the sentimental analysis 
 	 *  and output the sentimental score into an array </p>
-	 * @param sentences ArrayList containing sentences to be parse into CoreNLP sentimental analysis
-	 * @throws UserDataException If sentences size is less than 1, throw "Sentence size is less then 1" message to console 
-	 * @throws NullPointerException ArrayList is not initialized 
+	 * @param sentences - ArrayList containing sentences to be parse into CoreNLP sentimental analysis
+	 * @throws UserDataException - If sentences size is less than 1, throw "Sentence size is less then 1" message to console 
+	 * @throws NullPointerException - ArrayList is not initialized 
 	 * @return a double array containing the sentimental Score
 	 * @since 1.0
 	 */
@@ -85,6 +91,8 @@ public class SentimentalService {
 		int length = 0;
 		
 		if (sentences.size() > 0) {
+			// Parse each sentence into the sentimental analysis library for classification
+		    // Each sentence is encaspulated within a document required before sentimental analsysis is conducted
 			for (int i = 0; i < sentences.size(); i++) {
 				Annotation doc = new Annotation(sentences.get(i));
 				pipeline.annotate(doc);

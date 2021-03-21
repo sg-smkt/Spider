@@ -7,9 +7,8 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.oop.Spider.errorhanding.CustomError;
 import com.oop.Spider.services.CrawlReddit;
-
-import errorhandling.CustomError;
 
 class CrawlRedditTest
 {

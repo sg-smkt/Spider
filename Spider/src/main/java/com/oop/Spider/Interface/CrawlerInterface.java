@@ -2,7 +2,8 @@ package com.oop.Spider.Interface;
 
 import java.io.IOException;
 
-import errorhandling.CustomError;
+import com.oop.Spider.errorhanding.CustomError;
+
 import twitter4j.TwitterException;
 
 public abstract class CrawlerInterface {

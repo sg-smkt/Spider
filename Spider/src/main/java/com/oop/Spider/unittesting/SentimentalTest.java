@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.oop.Spider.errorhanding.CustomError;
 import com.oop.Spider.services.SentimentalService;
-
-import errorhandling.CustomError;
 
 class SentimentalTest {
 	static SentimentalService sentimentalTest;

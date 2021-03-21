@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
-import errorhandling.CustomError;
+import com.oop.Spider.errorhanding.CustomError;
+
 import tech.tablesaw.api.IntColumn;
 import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.api.Table;
@@ -22,9 +23,9 @@ import tech.tablesaw.plotly.api.PiePlot;
 public class PlottingService {
 	
 	/**
-	 * <p>This Method takes in a list of sentimental categorization and outputs a Table Object </br>
+	 * <p>This Method takes in a list of sentimental categorization and outputs a Table Object 
 	 * There are 5 types of sentimental categorization which includes: "Very Negative", "Negative", "Neutral", "Positive" and "Very Positive"</p>
-	 * The method also counts the number of invalid string in the list and returns an error message with the information</p>
+	 * <p>The method also counts the number of invalid string in the list and returns an error message with the information</p>
 	 * @param data ArrayList containing Sentimental categorization
 	 * @return Table object consisting two column; Column 1 list the sentimental categorization; Column 2 list of number 
 	 * of counts associated with the sentimental categorization
@@ -86,7 +87,7 @@ public class PlottingService {
 	}
 	
 	/**
-	 * <p> This method creates a Bar Chart based based on the Table input data. Then the Bar Chart is insert into a html file specified </b>
+	 * <p> This method creates a Bar Chart based based on the Table input data. Then the Bar Chart is insert into a html file specified 
 	 * by the user in the form of javascript </p>
 	 * @param table Table object
 	 * @param filename html file to insert Bar Chart javascript
@@ -116,7 +117,7 @@ public class PlottingService {
 	}
 	
 	/**
-	 * <p> This method creates a Bar Chart based based on the Table input data. Then the Bar Chart is insert into a html file specified </b>
+	 * <p> This method creates a Bar Chart based based on the Table input data. Then the Bar Chart is insert into a html file specified 
 	 * by the user in the form of javascript </p>
 	 * @param table Table object
 	 * @param filename html file to insert Bar Chart javascript

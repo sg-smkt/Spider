@@ -23,8 +23,7 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.oop.Spider.Interface.CrawlerInterface;
-
-import errorhandling.CustomError;
+import com.oop.Spider.errorhanding.CustomError;
 
 import org.json.simple.JSONArray;
 import java.io.IOException;

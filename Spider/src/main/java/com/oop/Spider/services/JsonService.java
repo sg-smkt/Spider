@@ -13,18 +13,18 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import errorhandling.CustomError;
+import com.oop.Spider.errorhanding.CustomError;
 
 @Service
 public class JsonService {
 	
 	/**
 	 * <p> This method read the data from the specified file and returns the json object</p>
-	 * @param filename specify a value file to be read into json object
+	 * @param filename - specify a value file to be read into json object
 	 * @return The json Object
-	 * @throws FileNotFoundException If the file is not found 
-	 * @throws IOException If there's error during input or output
-	 * @throws ParseException If there's error during parsing of data
+	 * @throws FileNotFoundException - If the file is not found 
+	 * @throws IOException - If there's error during input or output
+	 * @throws ParseException - If there's error during parsing of data
 	 * @see <a href="https://code.google.com/archive/p/json-simple/">Json Simple</a>
 	 * @since 1.0
 	 */
@@ -39,8 +39,8 @@ public class JsonService {
 	
 	/**
 	 * <p> This method write data to the file specified </p>
-	 * @param filename The filename to write the data to
-	 * @param json The data containing infomation to be written to the specified file
+	 * @param filename - The filename to write the data to
+	 * @param data - The data containing infomation to be written to the specified file
 	 * @throws CustomError Thrown if filename is empty
 	 * @since 1.0
 	 */
@@ -50,6 +50,7 @@ public class JsonService {
 		} else {
 			FileWriter file = new FileWriter(filename);
 			file.write(data.toString());
+			// forces any buffered output bytes to be written out
 			file.flush();
 			file.close();	
 		}
@@ -68,19 +69,20 @@ public class JsonService {
 	 * 		"Submission Name": String
 	 *  }]
 	 *  }
-	 * @param filename The filename to read the data from
+	 * @param filename - The filename to read the data from
 	 * @return The arraylist containing the list of reddit comments within the sub-subreddit
-	 * @throws ParseException If there's error during parsing of data
-	 * @throws IOException If there's error during input or output
-	 * @see GetReddit.ConvertToJson
+	 * @throws ParseException - If there's error during parsing of data
+	 * @throws IOException - If there's error during input or output
 	 * @since 1.0
 	 */
 	public ArrayList<String> getRedditComments(String filename) throws ParseException, IOException, NullPointerException, FileNotFoundException {
 		// Initialize ArrayList to Store Reddit Comments into a string
 		ArrayList<String> textCollection = new ArrayList<String>();
 		String text = "";
+		// read data from json file and stores it into an json object
 		JSONObject redditObject = JsonService.read(filename);
 		JSONArray redditSubmission = (JSONArray) redditObject.get("Submissions");
+		//Adds the json result with "Comments" attributes and add it to an Array List
 		Iterator<JSONObject> iterator = redditSubmission.iterator();
 		while (iterator.hasNext()) {
 			ArrayList<String> RedditComments = (ArrayList<String>) iterator.next().get("Comments");
@@ -100,17 +102,17 @@ public class JsonService {
 	 * 	"Hashtag Name" : String 
 	 *  }
 	 * 
-	 * @param filename The filename to read the data from
+	 * @param filename - The filename to read the data from
 	 * @return The arraylist containing the list of reddit comments within the sub-subreddit
-	 * @throws ParseException If there's error during parsing of data
-	 * @throws IOException If there's error during input or output
-	 * @see GetTwitter.ConvertToJson
+	 * @throws ParseException - If there's error during parsing of data
+	 * @throws IOException - If there's error during input or output
 	 * @since 1.0
 	 */
 	public ArrayList<String> getTwitterComments(String filename) throws ParseException, IOException, NullPointerException, FileNotFoundException{
 		ArrayList<String> textCollection = new ArrayList<String>();
 		JSONObject TwitterObject = JsonService.read(filename);
 		JSONArray TwitterTweets = (JSONArray) TwitterObject.get("Tweets");
+		// Check if there's any value with "Tweets" json attribute
 		if (TwitterTweets != null) {
 			textCollection = TwitterTweets;
 			return textCollection;
@@ -124,8 +126,8 @@ public class JsonService {
 	 * <p> This method returns the reddit object from the file specified </p>
 	 * @param filename The filename to read the data from
 	 * @return The reddit object
-	 * @throws ParseException If there's error during parsing of data
-	 * @throws IOException If there's error during input or output
+	 * @throws ParseException - If there's error during parsing of data
+	 * @throws IOException - If there's error during input or output
 	 * @since 1.0
 	 */
 	public Object getRedditObject(String filename) throws ParseException, IOException {
@@ -137,8 +139,8 @@ public class JsonService {
 	 * <p> This method returns the twitter object from the file specified </p>
 	 * @param filename The filename to read the data from
 	 * @return The reddit object
-	 * @throws ParseException If there's error during parsing of data
-	 * @throws IOException If there's error during input or output
+	 * @throws ParseException - If there's error during parsing of data
+	 * @throws IOException - If there's error during input or output
 	 * @since 1.0
 	 */
 	public Object getTwitterObject(String filename) throws ParseException, IOException {
@@ -152,15 +154,16 @@ public class JsonService {
 	 *  {
 	 *   "Sentimental Type Data" : [String, String ... ]
 	 *  }
-	 * @param filename The filename to read the data from
+	 * @param filename - The filename to read the data from
 	 * @return The array list containing the sentimental data
-	 * @throws ParseException If there's error during parsing of data
-	 * @throws IOException If there's error during input or output
+	 * @throws ParseException - If there's error during parsing of data
+	 * @throws IOException - If there's error during input or output
 	 * @since 1.0
 	 */
 	public ArrayList<String> getSentimentalData(String filename) throws ParseException, IOException {
 		JSONObject jsonObject = JsonService.read(filename);
 		JSONArray jsonArray = (JSONArray) jsonObject.get("Sentimental Type Data");
+		// Check if there's any value with "Sentimental Type Data" json attribute
 		if (jsonArray != null) {
 			return jsonArray;	
 		} else {

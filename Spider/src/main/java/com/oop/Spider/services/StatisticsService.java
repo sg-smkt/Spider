@@ -2,9 +2,9 @@ package com.oop.Spider.services;
 
 import org.springframework.stereotype.Service;
 
+import com.oop.Spider.errorhanding.CustomError;
 import com.oop.Spider.objects.Statistics;
 
-import errorhandling.CustomError;
 import tech.tablesaw.api.DoubleColumn;
 import tech.tablesaw.api.Table;
 
@@ -15,8 +15,8 @@ public class StatisticsService {
 
 	
 	/**
-	 * <p> This methods normalize the sentimental analysis score by multiplying each </br>
-	 * sentimental classification by its coefficient. Normalization is required to obtain an  </br>
+	 * <p> This methods normalize the sentimental analysis score by multiplying each 
+	 * sentimental classification by its coefficient. Normalization is required to obtain an  
 	 * accurate result when processing the score through the statistical methods </p>
 	 * <p> Sentimental Coefficent </p>
 	 * <ul>
@@ -26,8 +26,8 @@ public class StatisticsService {
 	 * <li>Positive: 5</li>
 	 * <li>Very Positive: 10</li>
 	 * </ul>
-	 * @param sentimentalArr double array containing sentimental analysis scores 
-	 * @return the normalized double array containing sentimental analysis scores
+	 * @param sentimentalArr - double array containing sentimental analysis scores 
+	 * @return the normalized - double array containing sentimental analysis scores
 	 * @since 1.0
 	 */
 	public double[] normalize(double[] sentimentalArr) throws NullPointerException{
@@ -40,7 +40,7 @@ public class StatisticsService {
 	
 	/**
 	 * <p> This method input the normalized sentimental score array and output the mean score value </p>
-	 * @param arr an double array conatining the sentimental scores 
+	 * @param normalizedScore - an double array conatining the sentimental scores 
 	 * @return The mean score value
 	 * @since 1.0
 	 */
@@ -52,7 +52,7 @@ public class StatisticsService {
 	
 	/**
 	 * <p> This method input the normalized sentimental score array and output the standard deviation value </p>
-	 * @param arr an double array conatining the sentimental scores  
+	 * @param normalizedScore - an double array conatining the sentimental scores  
 	 * @return The standard deviation score value
 	 * @since 1.0
 	 */
@@ -63,7 +63,7 @@ public class StatisticsService {
 	
 	/**
 	 * <p> This method input the normalized sentimental score array and output the variance value </p>
-	 * @param arr an double array conatining the sentimental scores  
+	 * @param normalizedScore - an double array conatining the sentimental scores  
 	 * @return The standard deviation score value
 	 * @since 1.0
 	 */
@@ -73,11 +73,11 @@ public class StatisticsService {
 	}
 	
 	/**
-	 * <p> This method inputs the sentimental mean value and outputs the mode in the form of sentimental<br>
+	 * <p> This method inputs the sentimental mean value and outputs the mode in the form of sentimental
 	 * type categorization </p> 
-	 * @param sentimentalMean See getMean(double[] normalizedScore) method
+	 * @param sentimentalMean - See getMean(double[] normalizedScore) method
 	 * @return The sentimental mode type
-	 * @throws CustomError If the mean value is not within the range of -2 < x < 2, an error occur
+	 * @throws CustomError If the mean value is not within the range of -2 to 2, an error occur
 	 * @since 1.0
 	 */
 	public String getModeSentimental(double sentimentalMean) throws CustomError{
@@ -98,7 +98,7 @@ public class StatisticsService {
 	
 	/**
 	 * <p> The method return and prints the sentimental summary of the sentimenalScore provided </p>
-	 * @param sentimentalScore an double array conatining the sentimental scores 
+	 * @param sentimentalScore - an double array conatining the sentimental scores 
 	 * @return the a statistics object containing the summary statistics information
 	 * @since 1.0
 	 */
