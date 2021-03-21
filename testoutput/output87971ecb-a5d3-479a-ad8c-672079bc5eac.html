@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentimental By Count</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id='target' ></div>
+        <script>
+        var target_target = document.getElementById('target');
+        var layout = {
+    title: 'Sentimental By Count',
+    height: 700,
+    width: 900,
+
+
+};
+
+var trace0 =
+{
+x: [0.0, 56.0, 274.0, 58.0, 6.0],
+y: ["Very Negative","Negative","Neurtal","Positive","Very Positive"],
+orientation: 'h',
+xaxis: 'x',
+yaxis: 'y',
+type: 'bar',
+name: '',
+};
+
+        var data = [ trace0];
+Plotly.newPlot(target_target, data, layout);            </script>
+
+</body>
+</html>
